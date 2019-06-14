@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace matthewmackay.info
+namespace MatthewMackay.Info
 {
     public class Program
     {

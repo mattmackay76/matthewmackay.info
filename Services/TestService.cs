@@ -1,11 +1,11 @@
-﻿using matthewmackay.info.Models;
+﻿using MatthewMackay.Info.Models;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace matthewmackay.info.Services
+namespace MatthewMackay.Info.Services
 {
     public class TestService
     {

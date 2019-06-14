@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using matthewmackay.info.Services;
+using MatthewMackay.Info.Models;
+using MatthewMackay.Info.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace matthewmackay.info.Controllers
+namespace MatthewMackay.Info.Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller
@@ -22,8 +24,20 @@ namespace matthewmackay.info.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles="Administrator")]
+        public ActionResult Test() => Ok(new { someText="hello world" });
+        
+
+        [HttpGet]
+        public IEnumerable<Test> GetTest()
+        {
+            return _testService.Get();
+        }
+
+        [HttpGet("[action]")]
         public IEnumerable<WeatherForecast> WeatherForecasts(int startDateIndex)
         {
+           
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

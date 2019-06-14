@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace matthewmackay.info.Models
+namespace MatthewMackay.Info.Models
 {
     public interface IDatabaseSettings
     {
