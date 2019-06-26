@@ -13,6 +13,8 @@ namespace MatthewMackay.Info.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        public string someData { get; set; }
+        public string SomeData { get; set; }
+
+        public string SomeOtherData { get; set; }
     }
 }

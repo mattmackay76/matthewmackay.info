@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MatthewMackay.Info.Controllers
 {
+    [Authorize]
+    [ApiController]
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
@@ -35,7 +37,6 @@ namespace MatthewMackay.Info.Controllers
             _testService.Put(test);
             return Created(nameof(GetTest), test);
         }
-
 
         [HttpGet("[action]")]
         public IEnumerable<Test> GetTest() => 
