@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace MatthewMackay.Info.Services
 {
@@ -14,8 +16,8 @@ namespace MatthewMackay.Info.Services
     {
         private readonly IEnumerable<User> _users = new List<User>
         {
-            new User { Id = 1, Username = "matt", Password = "123", Role = "Administrator"},
-            new User { Id = 3, Username = "guest", Password = "123", Role = "Guest"},
+            new User { Id = 1, Username = "matt", Password = "84854f3aea13b84dfefb68fa9e3ce3c50538539e2fa7518133b01414e5ef8c97", Role = "Administrator"},
+            new User { Id = 3, Username = "guest", Password = "95becae918b7ed9c6b98ad8f72c01494f5f91fa8b04641305b321d21e55e1da5", Role = "Guest"},
         };
 
         private readonly IConfiguration _configuration;
@@ -27,7 +29,11 @@ namespace MatthewMackay.Info.Services
 
         public string Login(LoginDto loginDto)
         {
-            var user = _users.Where(x => x.Username == loginDto.Username && x.Password == loginDto.Password).SingleOrDefault();
+            var user = _users
+                .Where(
+                    x => x.Username == loginDto.Username &&
+                    x.Password == Sha256(loginDto.Password))
+                .SingleOrDefault();
 
             if (user == null)
             {
@@ -55,5 +61,20 @@ namespace MatthewMackay.Info.Services
             var token = jwtTokenHandler.WriteToken(jwtToken);
             return token;
         }
+
+        public static string Sha256(string value)
+        {
+            StringBuilder Sb = new StringBuilder();
+            using (var hash = SHA256.Create())
+            {
+                Encoding enc = Encoding.UTF8;
+                Byte[] result = hash.ComputeHash(enc.GetBytes(value));
+
+                foreach (Byte b in result)
+                    Sb.Append(b.ToString("x2"));
+            }
+            return Sb.ToString();
+        }
+
     }
 }

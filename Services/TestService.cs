@@ -17,7 +17,12 @@ namespace MatthewMackay.Info.Services
             _testCollection = database.GetCollection<Test>(dbSettings.TestCollectionName);
         }
 
-        public List<Test> Get() => _testCollection.Find<Test>(t => true).ToList();
+//        public List<Test> Get() => _testCollection.Find<Test>(t => true).ToList();
+
+        public async Task<List<Test>> Get() => (await _testCollection.FindAsync<Test>(t => true)).ToList();
+
+
+        public void Put(Test test) => _testCollection.InsertOne(test);
 
     }
 }

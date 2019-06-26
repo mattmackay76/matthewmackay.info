@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style type="text/css">
+
+         .dark_blue  { background-color: darkblue;  }
+         .light_blue { background-color: lightblue; }
+         .green      { background-color: green; }
+        .red        { background-color: red; }
+        .blue       { background-color: blue; }
+        .yellow     { background-color: yellow; }
+
+
+        @media screen and (min-width:500px) {
+            .green      { order: 1; width: 100%; height: 100px; }
+            .light_blue { order: 2; width: 50%;  height: 100px; }
+            .dark_blue  { order: 3; width: 50%;  height: 100px; }
+            .yellow     { order: 4; width: 20%;  height: 100px; }
+            .red        { order: 5; width: 60%;  height: 100px; }
+            .blue       { order: 6; width: 20%;  height: 100px; }
+            
+        }
+
+         @media screen and (max-width:500px) {
+            .box {
+                width: 150px;
+                height: 100px;
+            }    
+        }
+
+        .container {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;  
+        }
+
+        
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box dark_blue"></div>
+        <div class="box light_blue"></div>
+        <div class="box green"></div>
+        <div class="box red"></div>
+        <div class="box blue"></div>
+        <div class="box yellow"></div>
+    </div>
+</body>
+</html>

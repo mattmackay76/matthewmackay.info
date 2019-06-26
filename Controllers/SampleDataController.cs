@@ -27,12 +27,9 @@ namespace MatthewMackay.Info.Controllers
         [Authorize(Roles="Administrator")]
         public ActionResult Test() => Ok(new { someText="hello world" });
         
-
-        [HttpGet]
-        public IEnumerable<Test> GetTest()
-        {
-            return _testService.Get();
-        }
+        [HttpGet("[action]")]
+        public IEnumerable<Test> GetTest() => 
+            _testService.Get().Result;
 
         [HttpGet("[action]")]
         public IEnumerable<WeatherForecast> WeatherForecasts(int startDateIndex)
