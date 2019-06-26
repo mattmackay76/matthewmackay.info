@@ -26,7 +26,17 @@ namespace MatthewMackay.Info.Controllers
         [HttpGet("[action]")]
         [Authorize(Roles="Administrator")]
         public ActionResult Test() => Ok(new { someText="hello world" });
-        
+
+        [HttpPost("[action]")]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Test([FromBody]Test test)
+        {
+            //validate Test here
+            _testService.Put(test);
+            return Created(nameof(GetTest), test);
+        }
+
+
         [HttpGet("[action]")]
         public IEnumerable<Test> GetTest() => 
             _testService.Get().Result;
