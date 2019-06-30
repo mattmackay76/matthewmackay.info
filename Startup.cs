@@ -1,3 +1,4 @@
+using matthewmackay.info.Attributes;
 using MatthewMackay.Info.Models;
 using MatthewMackay.Info.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -5,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,20 +33,32 @@ namespace MatthewMackay.Info
             services.AddSingleton<TestService>();
             services.AddTransient<AuthService>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
-            {
-                var signingKey = Convert.FromBase64String(Configuration["Jwt:SigningSecret"]);
-                options.TokenValidationParameters = new TokenValidationParameters
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(signingKey)
-                };
-            });
+                    var signingKey = Convert.FromBase64String(Configuration["Jwt:SigningSecret"]);
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(signingKey)
+                    };
+                });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options => {
+                //options.Filters.Add(new RequireHttpsAttribute
+                //{
+                //    Permanent = true
+                //});
+                //options.Filters.Add(new RequireNakedDomainAttribute
+                //{
+                //    IgnoreLocalhost = true,
+                //    Permanent = true
+                //});
+            })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -78,6 +92,7 @@ namespace MatthewMackay.Info
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
+            
 
             app.UseSpa(spa =>
             {

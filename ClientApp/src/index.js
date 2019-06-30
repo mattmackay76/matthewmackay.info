@@ -1,29 +1,26 @@
-import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
-import { createBrowserHistory } from 'history';
-import configureStore from './store/configureStore';
+import { createStore, applyMiddleware, compose } from 'redux';
+import reduxThunk from 'redux-thunk';
+
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import reducers from './reducers';
+import { unregister, register } from './registerServiceWorker';
 
-// Create browser history to use in the Redux store
-const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
-const history = createBrowserHistory({ basename: baseUrl });
-
-// Get the application-wide store instance, prepopulating with state from the server where available.
-const initialState = window.initialReduxState;
-const store = configureStore(history, initialState);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+    reducers,
+    composeEnhancers(applyMiddleware(reduxThunk))
+);
 
 const rootElement = document.getElementById('root');
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
+    <App />
   </Provider>,
   rootElement);
 
-registerServiceWorker();
+//register();
+unregister();

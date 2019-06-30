@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using MatthewMackay.Info.Models;
 using MatthewMackay.Info.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace MatthewMackay.Info.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class SampleDataController : Controller
@@ -26,8 +28,20 @@ namespace MatthewMackay.Info.Controllers
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles="Administrator")]
-        public ActionResult Test() => Ok(new { someText="hello world" });
+        public ActionResult Test()
+        {
+
+            var req = HttpContext.Request;
+            var reqJson = new {
+                host = JsonConvert.SerializeObject(req.Host),
+                scheme = req.Scheme,
+                path = HttpContext.Request.Path,
+                
+            };
+            //var host = HttpContext.Request.Host;
+            //var newPath = $"{HttpContext.Request.Scheme}://{host.Host.Replace("www.", "", StringComparison.OrdinalIgnoreCase)}{ req.PathBase}{ req.Path}{ req.QueryString}";
+            return new JsonResult(reqJson);
+        }
 
         [HttpPost("[action]")]
         [Authorize(Roles = "Administrator")]
@@ -39,6 +53,7 @@ namespace MatthewMackay.Info.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = "Administrator")]
         public IEnumerable<Test> GetTest() => 
             _testService.Get().Result;
 
@@ -60,7 +75,6 @@ namespace MatthewMackay.Info.Controllers
             public string DateFormatted { get; set; }
             public int TemperatureC { get; set; }
             public string Summary { get; set; }
-
             public int TemperatureF
             {
                 get
