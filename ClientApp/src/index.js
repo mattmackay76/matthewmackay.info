@@ -22,5 +22,5 @@ ReactDOM.render(
   </Provider>,
   rootElement);
 
-//register();
-unregister();
+register();
+//unregister();

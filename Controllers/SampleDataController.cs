@@ -36,6 +36,7 @@ namespace MatthewMackay.Info.Controllers
                 host = JsonConvert.SerializeObject(req.Host),
                 scheme = req.Scheme,
                 path = HttpContext.Request.Path,
+                now = DateTime.Now
                 
             };
             //var host = HttpContext.Request.Host;
