@@ -1,11 +1,6 @@
 ﻿import { AUTH_LOGIN } from '../actions/types';
 
-const initalState = {
-    isLoggedIn: false,
-    token: null
-};
-
-export default (state = initalState, action) => {
+export default (state = {}, action) => {
     switch (action.type) {
         case AUTH_LOGIN:
             return action.payload;

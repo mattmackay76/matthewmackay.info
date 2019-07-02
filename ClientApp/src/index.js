@@ -7,11 +7,29 @@ import reduxThunk from 'redux-thunk';
 import App from './App';
 import reducers from './reducers';
 import { unregister, register } from './registerServiceWorker';
+import { INITIAL_AUTH_STATE } from './actions/types';
+
+//we're storing the initial authReducer state in sessionState (globally to this tab)
+//specifically so that authentication survives a refresh but that the information
+//is not persisted, instead only lives in the browser's memory.
+var initialAuthState = window.sessionStorage.getItem(INITIAL_AUTH_STATE);
+
+const initialState =
+{
+    authReducer: initialAuthState ?
+        JSON.parse(initialAuthState) :
+        {
+            isLoggedIn: false,
+            token: null
+        }
+};
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
     reducers,
-    composeEnhancers(applyMiddleware(reduxThunk))
+    initialState,
+    composeEnhancers(applyMiddleware(reduxThunk)),
+    
 );
 
 const rootElement = document.getElementById('root');

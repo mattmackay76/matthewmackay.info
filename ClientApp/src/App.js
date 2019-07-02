@@ -21,7 +21,7 @@ class App extends React.Component
             <div>Hello world is {loggedInOrNot} logged in
             <FakeComponent />
                 <img src="/favicon.ico" />
-                <button onClick={this.loginClick} className="ui button">Login</button>
+                <button onClick={this.loginClick} className="ui button primary">Login</button>
             </div>
         );
     }
