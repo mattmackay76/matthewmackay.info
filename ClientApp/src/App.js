@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { authLogin } from './actions';
-import FakeComponent from './components/fakeComponent';
+import LayoutComponent from './components/layoutComponent';
 
 class App extends React.Component
 {
@@ -15,15 +15,15 @@ class App extends React.Component
     };
 
     render() {
-        var loggedInOrNot = !this.props.isLoggedIn ? 'not ' : '';
         return (
-            
-            <div>Hello world is {loggedInOrNot} logged in
-            <FakeComponent />
-                <img src="/favicon.ico" />
+            <div>
+                <LayoutComponent />
+                <br />
+                <br /><br />
                 <button onClick={this.loginClick} className="ui button primary">Login</button>
             </div>
         );
+        
     }
 }
 

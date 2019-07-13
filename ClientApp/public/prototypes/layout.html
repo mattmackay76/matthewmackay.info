@@ -1,0 +1,141 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" />
+    <style type="text/css">
+
+        /* best practice for box-sizing
+            https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+        html {
+            box-sizing: border-box;
+        }
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+        img { box-sizing: content-box; }
+
+        .wrapper {
+            display: grid;
+            grid-template-columns: repeat(12, [col-start] 1fr);
+            grid-gap: 20px;
+            max-width: 1024px;
+            margin: 0 auto;
+            font: 1.2em Helvetica, arial, sans-serif;
+        }
+
+        /*all *first* descendents of .wrapper class (should mostly be semantic elements*/ 
+        .wrapper > * {
+            border: 2px solid #f08c00;
+            background-color: #ffec99;
+            border-radius: 5px;
+            padding: 10px;
+            /*by default take the entire row (ex: header/footer)*/
+            grid-column: col-start / span 12;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .profile img {
+            width: 100%;
+        }
+
+        @media (min-width: 400px) {
+
+            .profile {
+                /*col-start 1 is assumed*/
+                grid-column: col-start / span 3;
+                grid-row: 3;
+            }
+
+            .ad {
+                grid-column: col-start / span 3;
+                grid-row: 4 / span 2;
+            }
+
+            .resume {
+                grid-column: col-start 4 / span 9;
+                grid-row: 3 / span 2;
+            }
+
+            .main-footer {
+                grid-column: col-start 4 / span 9;
+            }
+
+            nav ul {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+
+        @media (min-width: 700px) {
+            .main-nav {
+                grid-column: col-start / span 2;
+                grid-row: 2 / 4;
+            }
+
+            .resume {
+                grid-column: col-start 3 / span 8;
+                grid-row: 2 / 4;
+            }
+
+            .profile {
+                grid-column: col-start 11 / span 2;
+                grid-row: 2;
+            }
+
+            .ad {
+                grid-column: col-start 11 / span 2;
+                grid-row: 3;
+            }
+
+            .main-footer {
+                grid-column: col-start / span 12;
+            }
+
+            nav ul {
+                display:flex;
+                flex-direction: column;
+            }
+        }
+
+    </style>
+    <title>matthewmackay.info</title>
+</head>
+<body>
+    <noscript>
+        You need to enable JavaScript to run this app.
+    </noscript>
+
+    <div class="wrapper">
+        <header class="main-head">
+                The header
+        </header>
+		<nav class="main-nav">
+            <ul>
+                <li><a href="">Nav 1</a></li>
+                <li><a href="">Nav 2</a></li>
+                <li><a href="">Nav 3</a></li>
+            </ul>
+        </nav>
+        <article class="resume">
+            <h1>My Resume</h1>
+            <p>In this layout, we display the areas in source order for any screen less that 500 pixels wide. We go to a two column layout, and then to a three column layout by redefining the grid, and the placement of items on the grid.</p>
+        </article>
+        <aside class="profile">
+            <img src="../mugshot.png" />
+        </aside>
+        <div class="ad">Advertising</div>
+        <footer class="main-footer">The footer</footer>
+    </div>
+
+
+</body>
+</html>
