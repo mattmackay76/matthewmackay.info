@@ -21,7 +21,7 @@
         .wrapper {
             display: grid;
             grid-template-columns: repeat(12, [col-start] 1fr);
-            grid-gap: 20px;
+            grid-gap: 5px 10px;
             max-width: 1024px;
             margin: 0 auto;
             font: 1.2em Helvetica, arial, sans-serif;
@@ -33,6 +33,7 @@
             background-color: #ffec99;
             border-radius: 5px;
             padding: 10px;
+
             /*by default take the entire row (ex: header/footer)*/
             grid-column: col-start / span 12;
         }
@@ -47,62 +48,37 @@
             width: 100%;
         }
 
-        @media (min-width: 400px) {
+        @media (min-width: 550px) {
+
+            .main-head {
+                grid-column: col-start / span 4;
+            }
+
+            .main-nav {
+                grid-column: 5 / span 8;
+            }
 
             .profile {
                 /*col-start 1 is assumed*/
-                grid-column: col-start / span 3;
-                grid-row: 3;
-            }
-
-            .ad {
-                grid-column: col-start / span 3;
-                grid-row: 4 / span 2;
+                grid-column: col-start / span 4;
+                grid-row: 3 / span 1;
             }
 
             .resume {
-                grid-column: col-start 4 / span 9;
-                grid-row: 3 / span 2;
+                grid-column: col-start 5 / span 8;
+                grid-row: 3 / span 1;
             }
-
-            .main-footer {
-                grid-column: col-start 4 / span 9;
-            }
-
+            
             nav ul {
                 display: flex;
                 justify-content: space-between;
             }
-        }
-
-        @media (min-width: 700px) {
-            .main-nav {
-                grid-column: col-start / span 2;
-                grid-row: 2 / 4;
-            }
-
-            .resume {
-                grid-column: col-start 3 / span 8;
-                grid-row: 2 / 4;
-            }
-
-            .profile {
-                grid-column: col-start 11 / span 2;
-                grid-row: 2;
-            }
-
-            .ad {
-                grid-column: col-start 11 / span 2;
-                grid-row: 3;
+            nav ul a {
+                margin-right: 10px;
             }
 
             .main-footer {
-                grid-column: col-start / span 12;
-            }
-
-            nav ul {
-                display:flex;
-                flex-direction: column;
+                grid-row: 5;
             }
         }
 
@@ -116,23 +92,35 @@
 
     <div class="wrapper">
         <header class="main-head">
-                The header
+            <div style="display:block;">MatthewMackay.info
+            </div>
+            
         </header>
-		<nav class="main-nav">
+        <nav class="main-nav">
             <ul>
-                <li><a href="">Nav 1</a></li>
-                <li><a href="">Nav 2</a></li>
-                <li><a href="">Nav 3</a></li>
+                <li><a href="">Home</a></li>
+                <li><a href="">Login</a></li>
             </ul>
         </nav>
-        <article class="resume">
-            <h1>My Resume</h1>
-            <p>In this layout, we display the areas in source order for any screen less that 500 pixels wide. We go to a two column layout, and then to a three column layout by redefining the grid, and the placement of items on the grid.</p>
-        </article>
         <aside class="profile">
+            <section style="padding-bottom: 10px;">
+                <span style="font-size:larger; font-weight: bold;">Matthew Mackay</span><br />
+                <span>software engineer</span>
+            </section>
             <img src="../mugshot.png" />
+            <ul>
+                <li>one</li>
+                <li>two</li>
+                <li>three</li>
+            </ul>
         </aside>
-        <div class="ad">Advertising</div>
+        <article class="resume">
+            <h4>My Resume</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </article>
+
+        <!--<div class="ad">Advertising</div>-->
         <footer class="main-footer">The footer</footer>
     </div>
 
