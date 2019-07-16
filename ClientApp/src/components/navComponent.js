@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import { NavLink, withRouter  } from 'react-router-dom';  
 import { connect } from 'react-redux';
 import { authLogin, authLogout } from '../actions';
 
@@ -22,13 +23,13 @@ class NavComponent extends Component {
 
         return (
             <div className="nav-component">
-                <a href="/" style={{ fontSize: '1.5em' }}>
+                <NavLink to="/" style={{ fontSize: '1.5em' }}>
                     <i className="home icon" />
-                </a>
-                <div className="links">
-                    <a href="#">Resume</a>
-                    <a href="#">Skills</a>
-                    <a href="#">Demos</a>
+                </NavLink>
+                <div className="links"> 
+                    <NavLink to="/resume" activeClassName="selected">Resume</NavLink>
+                    <NavLink to="/skills" activeClassName="selected">Skills</NavLink>
+                    
                 </div>
 
                 {logInOutButton}
@@ -46,4 +47,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { authLogin, authLogout })(NavComponent);
+export default withRouter(connect(mapStateToProps, { authLogin, authLogout })(NavComponent));

@@ -78,6 +78,10 @@
         padding-right: 20px;
     }
 
+    .nav-component .links a.selected {
+        font-weight: bolder;
+    }
+
     .nav-component a {
         font-size: .85em;
         color: #2185d0;
