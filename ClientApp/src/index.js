@@ -41,4 +41,4 @@ ReactDOM.render(
   </Provider>,
   rootElement);
 
-register();
+register(); //PWA service worker

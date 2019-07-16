@@ -1,4 +1,4 @@
-﻿import { INITIAL_AUTH_STATE, FETCH_TESTS, AUTH_LOGIN } from './types';
+﻿import { INITIAL_AUTH_STATE, FETCH_TESTS, AUTH_LOGIN, AUTH_LOGOUT } from './types';
 
 export const authLogin = () => async dispatch => {
     //TODO: POST to auth to get this auth object
@@ -14,6 +14,21 @@ export const authLogin = () => async dispatch => {
         type: AUTH_LOGIN,
         payload: auth
     });
+};
+
+export const authLogout = () => async dispatch => {
+    var auth = {
+        isLoggedIn: false,
+        token: null
+    };
+    //TODO: after call to auth, store in sessionStorage.initialAuthState (temporary solution to refreshes)
+    window.sessionStorage.setItem(INITIAL_AUTH_STATE, JSON.stringify(auth));
+
+    dispatch({
+        type: AUTH_LOGOUT,
+        payload: auth
+    });
+
 };
 
 export const fetchTests = () => async dispatch => {

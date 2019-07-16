@@ -18,6 +18,14 @@
         }
         img { box-sizing: content-box; }
 
+        body {
+            background-color: #dadada;
+        }
+
+        a {
+            color: #425cbb;
+        }
+
         .wrapper {
             display: grid;
             grid-template-columns: repeat(12, [col-start] 1fr);
@@ -29,8 +37,8 @@
 
         /*all *first* descendents of .wrapper class (should mostly be semantic elements*/ 
         .wrapper > * {
-            border: 2px solid #f08c00;
-            background-color: #ffec99;
+            /*border: 2px solid #f08c00;*/
+            background-color: white;
             border-radius: 5px;
             padding: 10px;
 
@@ -47,6 +55,19 @@
         .profile img {
             width: 100%;
         }
+
+        .profile > section {
+            padding-bottom: 10px;
+        }
+
+        .profile section .name {
+            font-size:larger; font-weight: bold;
+        }
+
+         .main-head, .main-footer {
+             background-color: black;
+             color: white;
+         }
 
         @media (min-width: 550px) {
 
@@ -92,9 +113,7 @@
 
     <div class="wrapper">
         <header class="main-head">
-            <div style="display:block;">MatthewMackay.info
-            </div>
-            
+            MatthewMackay.info
         </header>
         <nav class="main-nav">
             <ul>
@@ -103,8 +122,8 @@
             </ul>
         </nav>
         <aside class="profile">
-            <section style="padding-bottom: 10px;">
-                <span style="font-size:larger; font-weight: bold;">Matthew Mackay</span><br />
+            <section >
+                <span class="name" >Matthew Mackay</span><br />
                 <span>software engineer</span>
             </section>
             <img src="../mugshot.png" />
