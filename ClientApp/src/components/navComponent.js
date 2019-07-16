@@ -27,7 +27,7 @@ class NavComponent extends Component {
                 </a>
                 <div className="links">
                     <a href="#">Resume</a>
-                    <a href="#">Portfolio</a>
+                    <a href="#">Skills</a>
                     <a href="#">Demos</a>
                 </div>
 

@@ -49,11 +49,15 @@
         font-weight: bold;
     }
 
-    .main-head, .main-footer {
-        background-color: black;
-        color: white;
-        text-align: center;
-    }
+.main-head, .main-footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 10pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
     .main-footer .copyright {
         font-size: x-small
@@ -81,21 +85,21 @@
 
 @media (min-width: 550px) {
     .main-head {
-        grid-column: col-start / span 4;
+        grid-column: col-start / span 3;
     }
 
     .main-nav {
-        grid-column: 5 / span 8;
+        grid-column: 4 / span 9;
     }
 
     .profile {
         /*col-start 1 is assumed*/
-        grid-column: col-start / span 4;
+        grid-column: col-start / span 3;
         grid-row: 3 / span 1;
     }
 
     .resume {
-        grid-column: col-start 5 / span 8;
+        grid-column: col-start 4 / span 9;
         grid-row: 3 / span 1;
     }
 

@@ -36,7 +36,7 @@ class LayoutComponent extends Component {
                 </article>
                 <footer className="main-footer">
                     <span className="copyright">
-                        MatthewMackay.info - Copyright 2019, all rights reserved.
+                        Copyright 2019, all rights reserved.
                     </span>
                 </footer>
             </div>
