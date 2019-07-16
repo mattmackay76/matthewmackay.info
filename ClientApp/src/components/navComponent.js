@@ -21,19 +21,18 @@ class NavComponent extends Component {
             <button onClick={this.loginClick} className="mini ui button primary">Login</button>;
 
         return (
-            <ul>
-                <li>
-                    <a href="/" style={{ fontSize: '1.5em' }}>
-                        <i className="home icon" />
-                    </a>
-                </li>
-                <li>
+            <div className="nav-component">
+                <a href="/" style={{ fontSize: '1.5em' }}>
+                    <i className="home icon" />
+                </a>
+                <div className="links">
                     <a href="#">Resume</a>
-                </li>
-                <li>
-                    {logInOutButton}
-                </li>
-            </ul>
+                    <a href="#">Portfolio</a>
+                    <a href="#">Demos</a>
+                </div>
+
+                {logInOutButton}
+            </div>
         );
     }
 }

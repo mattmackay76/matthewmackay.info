@@ -16,16 +16,7 @@
     body {
         background-color: #dadada;
     }
-
-    a {
-        color: #425cbb;
-    }
-
-    nav ul a {
-        font-size: .75em;
-        color: #2185d0;
-    }
-
+    
     .wrapper {
         display: grid;
         grid-template-columns: repeat(12, [col-start] 1fr);
@@ -43,12 +34,6 @@
         padding: 10px;
         /*by default take the entire row (ex: header/footer)*/
         grid-column: col-start / span 12;
-    }
-
-    nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
     }
 
     .profile img {
@@ -74,8 +59,28 @@
         font-size: x-small
     }
 
-    @media (min-width: 550px) {
-        .main-head {
+    .main-nav .nav-component {
+        display: grid;
+        grid-template-columns: 40px 5fr 1fr;
+    }
+
+    .nav-component .links {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .nav-component .links a {
+        padding-right: 20px;
+    }
+
+    .nav-component a {
+        font-size: .85em;
+        color: #2185d0;
+    }
+
+@media (min-width: 550px) {
+    .main-head {
         grid-column: col-start / span 4;
     }
 
