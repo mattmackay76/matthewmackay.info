@@ -16,7 +16,7 @@ class LayoutComponent extends Component {
 
         const resume = () => { 
             return (
-                <article className="resume">
+                <article className="content">
                     <h4>My Resume</h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -26,7 +26,7 @@ class LayoutComponent extends Component {
 
         const skills = () => {
             return (
-                <article className="resume">
+                <article className="content">
                     <h4>My Skills</h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -42,9 +42,11 @@ class LayoutComponent extends Component {
 
         return (
             <BrowserRouter>
-                <div className="wrapper">
-                    <header className="main-head">MatthewMackay.info</header>
-                    <nav className="main-nav">
+                <div className="layout">
+                    <header className="header">
+                        <a href="/">MatthewMackay.info</a>
+                    </header>
+                    <nav className="nav">
                         <NavComponent />
                     </nav>
                     <aside className="profile">
@@ -52,7 +54,9 @@ class LayoutComponent extends Component {
                             <span className="name" >Matthew Mackay</span><br />
                             <span>software engineer</span>
                         </section>
-                        <img src="../mugshot.png" />
+                        <div className="center">
+                            <img src="../mugshot.png" />
+                        </div>
                         <ul>
                             <li>one</li>
                             <li>two</li>
@@ -66,7 +70,7 @@ class LayoutComponent extends Component {
                         <Route path="/skills" component={skills} />
                     </Switch>
                 
-                    <footer className="main-footer">
+                    <footer className="footer">
                         <span className="copyright">
                             Copyright 2019, all rights reserved.
                         </span>

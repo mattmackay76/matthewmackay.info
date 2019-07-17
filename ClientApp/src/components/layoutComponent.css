@@ -1,118 +1,126 @@
-﻿
-    /* best practice for box-sizing
-                https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
-    html {
-        box-sizing: border-box;
-    }
+﻿/* best practice for box-sizing
+            https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+html {
+    box-sizing: border-box;
+}
 
-    *, *:before, *:after {
-        box-sizing: inherit;
-    }
+*, *:before, *:after {
+    box-sizing: inherit;
+}
 
-    img {
-        box-sizing: content-box;
-    }
+img {
+    box-sizing: content-box;
+}
 
-    body {
-        background-color: #dadada;
-    }
-    
-    .wrapper {
-        display: grid;
-        grid-template-columns: repeat(12, [col-start] 1fr);
-        grid-gap: 5px 10px;
-        max-width: 1024px;
-        margin: 0 auto;
-        font: 1.2em Helvetica, arial, sans-serif;
-    }
+body {
+    background-color: #dadada;
+}
 
-    /*all *first* descendents of .wrapper class (should mostly be semantic elements*/
-    .wrapper > * {
-        /*border: 2px solid #f08c00;*/
-        background-color: white;
-        border-radius: 5px;
-        padding: 10px;
-        /*by default take the entire row (ex: header/footer)*/
-        grid-column: col-start / span 12;
-    }
+a {
+    color: #425cbb;
+}
 
-    .profile img {
-        width: 100%;
-    }
+.layout {
+    display: grid;
+    max-width: 1024px;
+    margin: 0 auto;
+    font: 1.2em Helvetica, arial, sans-serif;
+}
 
-    .profile > section {
-        padding-bottom: 10px;
-    }
+.layout > * {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
 
-    .profile section .name {
-        font-size: larger;
-        font-weight: bold;
-    }
+.header, .footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-.main-head, .main-footer {
     background-color: black;
     color: white;
     text-align: center;
     font-size: 10pt;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-    .main-footer .copyright {
-        font-size: x-small
+.header a {
+    color: white;
+}
+
+.footer .copyright {
+    font-size: x-small;
+}
+
+.profile > section {
+    padding-bottom: 10px;
+}
+
+.profile section .name {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.profile div.center {
+    display: flex;
+    justify-content: space-around;
+}
+
+.profile img {
+    width: 100%;
+    max-width: 400px;
+}
+
+.nav-component {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+}
+
+.nav-component .links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.nav-component .links a {
+    padding-right: 10px;
+}
+
+.nav-component .links a.selected {
+    font-weight: bolder;
+}
+
+@media (min-width: 600px) {
+
+    .layout {
+        grid-template-columns: [left-gutter] .1fr [sidebar] 4fr [content] 8fr [right-gutter] .1fr;
+        grid-template-rows: [header] 50px [body] auto [footer] 50px;
+        grid-gap: 5px 10px;
     }
 
-    .main-nav .nav-component {
-        display: grid;
-        grid-template-columns: 40px 5fr 1fr;
+    .header {
+        grid-row: header;
+        grid-column: sidebar
     }
 
-    .nav-component .links {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
+    .footer {
+        grid-row: footer;
+        grid-column: sidebar / right-gutter;
     }
 
-    .nav-component .links a {
-        padding-right: 20px;
-    }
-
-    .nav-component .links a.selected {
-        font-weight: bolder;
-    }
-
-    .nav-component a {
-        font-size: .85em;
-        color: #2185d0;
-    }
-
-@media (min-width: 550px) {
-    .main-head {
-        grid-column: col-start / span 3;
-    }
-
-    .main-nav {
-        grid-column: 4 / span 9;
+    .nav {
+        grid-row: header;
+        grid-column: content;
     }
 
     .profile {
-        /*col-start 1 is assumed*/
-        grid-column: col-start / span 3;
-        grid-row: 3 / span 1;
+        grid-row: body;
+        grid-column: sidebar;
     }
 
-    .resume {
-        grid-column: col-start 4 / span 9;
-        grid-row: 3 / span 1;
-    }
-
-    nav ul {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .main-footer {
-        grid-row: 5;
+    .content {
+        grid-row: body;
+        grid-column: content;
     }
 }

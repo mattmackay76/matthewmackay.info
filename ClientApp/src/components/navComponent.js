@@ -23,15 +23,10 @@ class NavComponent extends Component {
 
         return (
             <div className="nav-component">
-                <NavLink to="/" style={{ fontSize: '1.5em' }}>
-                    <i className="home icon" />
-                </NavLink>
                 <div className="links"> 
                     <NavLink to="/resume" activeClassName="selected">Resume</NavLink>
                     <NavLink to="/skills" activeClassName="selected">Skills</NavLink>
-                    
                 </div>
-
                 {logInOutButton}
             </div>
         );
