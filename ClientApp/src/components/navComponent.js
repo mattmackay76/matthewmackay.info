@@ -17,15 +17,20 @@ class NavComponent extends Component {
     };
        
     render() {
-        var logInOutButton = this.props.isLoggedIn ?
+        const logInOutButton = this.props.isLoggedIn ?
             <button onClick={this.logoutClick} className="mini ui button primary">Logout</button> :
             <button onClick={this.loginClick} className="mini ui button primary">Login</button>;
+
+        const demosLink = this.props.isLoggedIn ?
+            <NavLink to="/demos" activeClassName="selected">Demos</NavLink> :
+            null;
 
         return (
             <div className="nav-component">
                 <div className="links"> 
                     <NavLink to="/resume" activeClassName="selected">Resume</NavLink>
                     <NavLink to="/skills" activeClassName="selected">Skills</NavLink>
+                    {demosLink}
                 </div>
                 {logInOutButton}
             </div>
