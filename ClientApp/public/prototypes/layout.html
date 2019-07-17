@@ -26,80 +26,93 @@
             color: #425cbb;
         }
 
-        .wrapper {
+        .layout {
             display: grid;
-            grid-template-columns: repeat(12, [col-start] 1fr);
-            grid-gap: 5px 10px;
             max-width: 1024px;
             margin: 0 auto;
             font: 1.2em Helvetica, arial, sans-serif;
         }
 
-        /*all *first* descendents of .wrapper class (should mostly be semantic elements*/ 
-        .wrapper > * {
-            /*border: 2px solid #f08c00;*/
+        .layout > * {
             background-color: white;
             border-radius: 5px;
             padding: 10px;
-
-            /*by default take the entire row (ex: header/footer)*/
-            grid-column: col-start / span 12;
         }
 
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
+        .header, .footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-size: 10pt;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header a {
+            color:white;
+        }
+
+       .profile > section {
+            padding-bottom: 10px;
+        }
+
+        .profile section .name {
+            font-size: larger;
+            font-weight: bold;
         }
 
         .profile img {
             width: 100%;
         }
 
-        .profile > section {
-            padding-bottom: 10px;
+        .nav-component {
+            display: grid;
+            grid-template-columns: 5fr 1fr;
         }
 
-        .profile section .name {
-            font-size:larger; font-weight: bold;
+        .nav-component .links {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            height:100%;
         }
 
-         .main-head, .main-footer {
-             background-color: black;
-             color: white;
-         }
+        .nav-component .links a {
+            padding-right: 10px;
+        }
 
-        @media (min-width: 550px) {
+        @media (min-width: 450px) {
 
-            .main-head {
-                grid-column: col-start / span 4;
+            .layout {
+                grid-template-columns: [left-gutter] .1fr [sidebar] 4fr [content] 8fr [right-gutter] .1fr;
+                grid-template-rows: [header] 50px [body] auto [footer] 50px;
+                grid-gap: 5px 10px;
             }
 
-            .main-nav {
-                grid-column: 5 / span 8;
+            .header {
+                grid-row: header;
+                grid-column: sidebar
+            }
+            
+            .footer {
+                grid-row: footer;
+                grid-column: sidebar / right-gutter;
+            }
+
+            .nav {
+                grid-row: header;
+                grid-column: content;
             }
 
             .profile {
-                /*col-start 1 is assumed*/
-                grid-column: col-start / span 4;
-                grid-row: 3 / span 1;
+                grid-row: body;
+                grid-column: sidebar;
             }
 
-            .resume {
-                grid-column: col-start 5 / span 8;
-                grid-row: 3 / span 1;
-            }
-            
-            nav ul {
-                display: flex;
-                justify-content: space-between;
-            }
-            nav ul a {
-                margin-right: 10px;
-            }
-
-            .main-footer {
-                grid-row: 5;
+            .content {
+                grid-row: body;
+                grid-column: content;
             }
         }
 
@@ -111,15 +124,18 @@
         You need to enable JavaScript to run this app.
     </noscript>
 
-    <div class="wrapper">
-        <header class="main-head">
-            MatthewMackay.info
+    <div class="layout">
+        <header class="header">
+            <a href="/">MatthewMackay.info</a>
         </header>
-        <nav class="main-nav">
-            <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">Login</a></li>
-            </ul>
+        <nav class="nav">
+            <div class="nav-component">
+                <div class="links">
+                    <a href="/resume" >Resume</a>
+                    <a href="/skills" >Skills</a>
+                </div>
+                <button class="mini ui button primary">Login</button>
+            </div>
         </nav>
         <aside class="profile">
             <section >
@@ -133,14 +149,19 @@
                 <li>three</li>
             </ul>
         </aside>
-        <article class="resume">
+        <article class="content">
             <h4>My Resume</h4>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </article>
-
-        <!--<div class="ad">Advertising</div>-->
-        <footer class="main-footer">The footer</footer>
+        
+        <footer class="footer">The footer</footer>
     </div>
 
 
