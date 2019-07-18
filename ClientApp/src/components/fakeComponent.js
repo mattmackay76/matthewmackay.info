@@ -8,8 +8,13 @@ class FakeComponent extends Component {
     }
 
     render() {
-        if (this.props.isLoggedIn && !this.props.isLoaded)
-            this.props.fetchTests();
+        if (this.props.isLoggedIn) {
+            if(!this.props.isLoaded)
+                this.props.fetchTests();
+        }
+        else
+            return null;
+        
 
         var test = <p></p>;
 
@@ -37,7 +42,7 @@ class FakeComponent extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return {
         isLoggedIn: state.authReducer.isLoggedIn,
         isLoaded: state.testReducer !== null,

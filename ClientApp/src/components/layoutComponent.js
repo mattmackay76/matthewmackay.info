@@ -6,6 +6,7 @@ import { fetchTests, authLogin } from '../actions';
 
 import './layoutComponent.css'
 import NavComponent from './navComponent';
+import Login from './Login';
 import Resume from './content/resumeComponent';
 import Skills from './content/skillsComponent';
 import Demos from './content/demosComponent';
@@ -22,9 +23,6 @@ class LayoutComponent extends Component {
                     <header className="header">
                         <a href="/">MatthewMackay.info</a>
                     </header>
-                    <nav className="nav">
-                        <NavComponent />
-                    </nav>
                     <aside className="profile">
                         <section >
                             <span className="name" >Matthew Mackay</span><br />
@@ -39,7 +37,10 @@ class LayoutComponent extends Component {
                             <li>three</li>
                         </ul>
                     </aside>
-                    
+                    <nav className="nav">
+                        <NavComponent />
+                        <Login hidden="true"/>
+                    </nav>
                     <Switch>
                     <Route path="/" exact component={()=><Resume />} />
                         <Route path="/resume" component={() => <Resume />} />

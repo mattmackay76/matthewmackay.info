@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';  
+import FakeComponent from '../fakeComponent';
 
 class DemosComponent extends Component {
 
@@ -14,8 +15,7 @@ class DemosComponent extends Component {
         return (
             <article className="content">
                 <h4>Demos</h4>
-                <p>nothing but us chickens</p>
-                <NavLink to="/">Go Home</NavLink>
+                <FakeComponent />
             </article>
         );
     }

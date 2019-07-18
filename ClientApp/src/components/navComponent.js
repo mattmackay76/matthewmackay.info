@@ -32,7 +32,7 @@ class NavComponent extends Component {
                     <NavLink to="/skills" activeClassName="selected">Skills</NavLink>
                     {demosLink}
                 </div>
-                {logInOutButton}
+                    {logInOutButton}
             </div>
         );
     }

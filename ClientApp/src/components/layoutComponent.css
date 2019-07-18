@@ -91,6 +91,21 @@ a {
     font-weight: bolder;
 }
 
+.login {
+    position: relative;
+    float: right;
+    background-color: black;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    /*width: 50%;*/
+    text-align: right;
+}
+
+.login > div.input {
+    margin-bottom: 5px; 
+}
+
 @media (min-width: 600px) {
 
     .layout {
