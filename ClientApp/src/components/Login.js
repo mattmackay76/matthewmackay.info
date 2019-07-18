@@ -10,23 +10,26 @@ class LoginComponent extends Component
     }
 
     render() {
-        var hidden = this.props.hidden;
+        let divProps = {
+            display: this.props.show ? '' : 'none'
+        };
+        
         return (
-            <div className="login">
-                <div class="ui mini labeled input">
-                    <div class="ui label">
+            <div className="login" style={divProps} >
+                <div className="ui mini labeled input">
+                    <div className="ui label">
                         username:
                     </div>
                     <input type="text" placeholder="" />
                 </div><br/>
-                <div class="ui mini labeled input">
-                    <div class="ui label">
+                <div className="ui mini labeled input">
+                    <div className="ui label">
                         password:
                     </div>
                     <input type="password" placeholder="" />
                 </div><br />
                 <button className="mini ui button primary">login</button>
-                <button className="mini ui button primary">cancel</button>
+                <button onClick={this.props.onCancelClick} className="mini ui button primary">cancel</button>
             </div>  
         );
     }

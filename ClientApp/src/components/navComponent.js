@@ -1,29 +1,16 @@
 ﻿import React, { Component } from 'react';
 import { NavLink, withRouter  } from 'react-router-dom';  
 import { connect } from 'react-redux';
-import { authLogin, authLogout } from '../actions';
 
 class NavComponent extends Component {
 
     componentDidMount() {
     }
-
-    //use lambda (arrow function) so that *this* is App
-    loginClick = (e) => {
-        this.props.authLogin();
-    };
-    logoutClick = (e) => {
-        this.props.authLogout();
-    };
-       
+    
     render() {
-        const logInOutButton = this.props.isLoggedIn ?
-            <button onClick={this.logoutClick} className="mini ui button primary">Logout</button> :
-            <button onClick={this.loginClick} className="mini ui button primary">Login</button>;
-
         const demosLink = this.props.isLoggedIn ?
-            <NavLink to="/demos" activeClassName="selected">Demos</NavLink> :
-            null;
+            <NavLink to="/demos" activeClassName="selected">Demos</NavLink> : null;
+        const buttonClass = 'mini ui button primary' + (this.props.loginDisabled ? ' disabled ' : ''); //watch those ()'s else the string concat fails
 
         return (
             <div className="nav-component">
@@ -32,7 +19,7 @@ class NavComponent extends Component {
                     <NavLink to="/skills" activeClassName="selected">Skills</NavLink>
                     {demosLink}
                 </div>
-                    {logInOutButton}
+                <button onClick={this.props.onClick} className={buttonClass}>Login</button>
             </div>
         );
     }
@@ -41,10 +28,7 @@ class NavComponent extends Component {
 const mapStateToProps = (state) => {
     return {
         isLoggedIn: state.authReducer.isLoggedIn,
-        isLoaded: state.testReducer !== null,
-        auth: state.authReducer,
-        test: state.testReducer
     };
 };
 
-export default withRouter(connect(mapStateToProps, { authLogin, authLogout })(NavComponent));
+export default withRouter(connect(mapStateToProps, { } )(NavComponent));

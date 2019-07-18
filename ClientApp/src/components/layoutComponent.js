@@ -13,6 +13,11 @@ import Demos from './content/demosComponent';
 
 class LayoutComponent extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = { loggingIn: false };
+    }
+
     componentDidMount() {
     }
 
@@ -38,8 +43,12 @@ class LayoutComponent extends Component {
                         </ul>
                     </aside>
                     <nav className="nav">
-                        <NavComponent />
-                        <Login hidden="true"/>
+                        <NavComponent
+                            loginDisabled={this.state.loggingIn}
+                            onClick={() => this.setState({ loggingIn: !this.state.loggingIn })} />
+                        <Login
+                            show={this.state.loggingIn}
+                            onCancelClick={() => this.setState({ loggingIn: false }) } />
                     </nav>
                     <Switch>
                     <Route path="/" exact component={()=><Resume />} />
