@@ -17,7 +17,8 @@ namespace MatthewMackay.Info.Services
         private readonly IEnumerable<User> _users = new List<User>
         {
             new User { Id = 1, Username = "matt", Password = "84854f3aea13b84dfefb68fa9e3ce3c50538539e2fa7518133b01414e5ef8c97", Role = "Administrator"},
-            new User { Id = 3, Username = "guest", Password = "95becae918b7ed9c6b98ad8f72c01494f5f91fa8b04641305b321d21e55e1da5", Role = "Guest"},
+            new User { Id = 3, Username = "guest", Password = "2fa4d02ba2b276156f37bb3677cd6c76764dc17fd2eb6dc7e91d7f1871111810", Role = "Guest"},
+            new User { Id = 3, Username = "curt", Password = "2fa4d02ba2b276156f37bb3677cd6c76764dc17fd2eb6dc7e91d7f1871111810", Role = "Guest"},
         };
 
         private readonly IConfiguration _configuration;
