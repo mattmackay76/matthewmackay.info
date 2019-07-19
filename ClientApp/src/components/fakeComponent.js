@@ -14,27 +14,15 @@ class FakeComponent extends Component {
         }
         else
             return null;
-        
 
-        var test = <p></p>;
-
-        if (this.props.isLoggedIn && this.props.isLoaded)
-            test = (
-                <div>
-                    <div>
-                        Generated Key: {JSON.stringify(this.props.test)}
-                    </div>
-                    <button onClick={this.props.fetchTests}>Re-fetch</button>
-                </div>
-            );
-        
         return (
-            <div style={{ width: '75%', overflowWrap: 'break-word' }}>
+            <React.Fragment>
                 <p>
                     fakeComponent IsLoggedIn {this.props.isLoggedIn.toString()}
                 </p>
-                {test}
-            </div>
+                <button onClick={this.props.fetchTests}>Re-fetch</button>
+                {this.props.test}
+            </React.Fragment>
         );
     }
 }

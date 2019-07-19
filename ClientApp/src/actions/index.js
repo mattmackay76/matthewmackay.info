@@ -56,7 +56,6 @@ export const authLogout = () => async dispatch => {
 };
 
 export const fetchTests = () => async (dispatch, getState) => {
-    debugger;
     const token = getState().authReducer.token;
     const params = {
         method: 'GET',
