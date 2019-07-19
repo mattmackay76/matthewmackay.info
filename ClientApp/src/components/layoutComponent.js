@@ -1,5 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';        
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 import { connect } from 'react-redux';
 import { fetchTests, authLogin } from '../actions';
@@ -24,6 +26,7 @@ class LayoutComponent extends Component {
     render() {
         return (
             <BrowserRouter>
+            <div>
                 <div className="layout">
                     <header className="header">
                         <a href="/">MatthewMackay.info</a>
@@ -34,7 +37,7 @@ class LayoutComponent extends Component {
                             <span>software engineer</span>
                         </section>
                         <div className="center">
-                            <img src="../mugshot.png" />
+                            <img src="../mugshot.png" alt="Matthew Mackay, software engineer!" />
                         </div>
                         <ul>
                             <li>one</li>
@@ -47,11 +50,11 @@ class LayoutComponent extends Component {
                             loginDisabled={this.state.loggingIn}
                             onClick={() => this.setState({ loggingIn: !this.state.loggingIn })} />
                         <Login
-                            show={this.state.loggingIn}
-                            onCancelClick={() => this.setState({ loggingIn: false }) } />
+                            visible={this.state.loggingIn}
+                            onCloseLogin={() => this.setState({ loggingIn: false })} />
                     </nav>
                     <Switch>
-                    <Route path="/" exact component={()=><Resume />} />
+                        <Route path="/" exact component={()=><Resume />} />
                         <Route path="/resume" component={() => <Resume />} />
                         <Route path="/skills" component={() => <Skills />} />
                         <Route path="/demos" component={() => <Demos />} />
@@ -62,8 +65,12 @@ class LayoutComponent extends Component {
                             Copyright 2019, all rights reserved.
                         </span>
                     </footer>
+                    
                 </div>
+                <ToastContainer />
+            </div>
             </BrowserRouter>
+            
         );
     }
 }

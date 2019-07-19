@@ -21,20 +21,17 @@ class FakeComponent extends Component {
         if (this.props.isLoggedIn && this.props.isLoaded)
             test = (
                 <div>
-                    <div style={{ width: '75%', overflowWrap: 'break-word' }}>
-                        Time on Server: {JSON.stringify(this.props.test.now)}
+                    <div>
+                        Generated Key: {JSON.stringify(this.props.test)}
                     </div>
                     <button onClick={this.props.fetchTests}>Re-fetch</button>
                 </div>
             );
         
         return (
-            <div>
+            <div style={{ width: '75%', overflowWrap: 'break-word' }}>
                 <p>
                     fakeComponent IsLoggedIn {this.props.isLoggedIn.toString()}
-                </p>
-                <p>
-                    fakeComponent token {this.props.auth.token}
                 </p>
                 {test}
             </div>
