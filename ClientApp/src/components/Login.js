@@ -1,9 +1,12 @@
 ﻿import React, { Component } from 'react';
 import { withRouter  } from 'react-router-dom';  
 import { connect } from 'react-redux';
-import { authLogin } from '../actions';
+import { toast } from 'react-toastify';
 
-class LoginComponent extends Component
+import { authLogin, setFlag } from '../actions';
+import { INVALID_LOGIN_ATTEMPT } from '../actions/constants';
+
+class Login extends Component
 {
     constructor(props) {
         super(props);
@@ -32,14 +35,22 @@ class LoginComponent extends Component
         });
     };
 
-    componentDidMount() {
+    //Gets run when state changes but even if render not needed/called
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.flags[INVALID_LOGIN_ATTEMPT]) {
+            toast("Invalid login");
+            this.props.setFlag({ [INVALID_LOGIN_ATTEMPT]: undefined });
+            return false; //no need to update/re-render this component in this case
+        }
+        return true;
     }
 
     render() {
+
         let divProps = {
             display: this.props.visible ? '' : 'none'
         };
-        
+
         return (
             <form onSubmit={(e)=>e.preventDefault()} className="login" style={divProps} >
                 <div className="ui mini labeled input">
@@ -66,7 +77,8 @@ const mapStateToProps = (state) => {
     isLoggedIn: state.authReducer.isLoggedIn,
         isLoaded: state.testReducer !== null,
         auth: state.authReducer,
+        flags: state.flagReducer
     };
 };
 
-export default withRouter(connect(mapStateToProps, { authLogin })(LoginComponent));
+export default withRouter(connect(mapStateToProps, { authLogin, setFlag })(Login));

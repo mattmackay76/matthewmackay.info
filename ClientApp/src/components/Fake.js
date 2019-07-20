@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import { fetchTests, authLogin } from '../actions';
 
-class FakeComponent extends Component {
+class Fake extends Component {
 
     componentDidMount() {
     }
@@ -36,4 +36,4 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-export default connect(mapStateToProps, { fetchTests, authLogin } )(FakeComponent);
+export default connect(mapStateToProps, { fetchTests, authLogin })(Fake);

@@ -1,9 +1,9 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';  
-import FakeComponent from '../fakeComponent';
+import FakeComponent from '../Fake';
 
-class DemosComponent extends Component {
+class Demos extends Component {
 
     componentDidMount() {
     }
@@ -31,4 +31,4 @@ const mapStateToProps = (state) => {
 };
 
 //withRouter so that we have access to this.pops.history
-export default withRouter(connect(mapStateToProps, {})(DemosComponent)); 
+export default withRouter(connect(mapStateToProps, {})(Demos)); 

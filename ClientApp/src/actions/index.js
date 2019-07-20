@@ -1,5 +1,16 @@
-﻿import { INITIAL_AUTH_STATE, FETCH_TESTS, AUTH_LOGIN, AUTH_LOGOUT } from './types';
-import { toast } from 'react-toastify';
+﻿import {
+    INITIAL_AUTH_STATE, FETCH_TESTS,
+    AUTH_LOGIN, AUTH_LOGOUT, SETFLAG
+} from './types';
+import { INVALID_LOGIN_ATTEMPT } from './constants';
+
+
+export const setFlag = (flags) => async (dispatch, getState) => {
+    dispatch({
+        type: SETFLAG,
+        payload: flags
+    });
+};
 
 export const authLogin = (username, password) => async (dispatch, getState) => {
     const res = await fetch('/api/Auth/Login', {
@@ -12,32 +23,30 @@ export const authLogin = (username, password) => async (dispatch, getState) => {
     });
     const json = await res.json();
 
-    var auth = {};
-
     if (json && json.status === 401) {
-        //TODO: dispatch an AUTH_LOGIN_FAILED?
-        //TODO: Please don't do UI stuff from within an action, remove this.. just a POC
-        //TODO: Let's dispatch info about failure into state and another component (Nav?) pick it up and toast
-        toast("Invalid login");
-        auth = {
-            isLoggedIn: false,
-            token: null
-        };
+
+        dispatch(setFlag({
+            [INVALID_LOGIN_ATTEMPT]: true
+        }));
+
     }
     else {
-        auth = {
+        let auth = {
             isLoggedIn: true,
             token: json.token
         };
+
+        dispatch({
+            type: AUTH_LOGIN,
+            payload: auth
+        });
+        dispatch(setFlag({
+            INVALID_LOGIN_ATTEMPT: undefined
+        }));
+
+        //TODO: after call to auth, store in sessionStorage.initialAuthState (temporary solution to refreshes)
+        window.sessionStorage.setItem(INITIAL_AUTH_STATE, JSON.stringify(auth));
     }
-
-    //TODO: after call to auth, store in sessionStorage.initialAuthState (temporary solution to refreshes)
-    window.sessionStorage.setItem(INITIAL_AUTH_STATE, JSON.stringify(auth));
-
-    dispatch({
-        type: AUTH_LOGIN,
-        payload: auth
-    });
 }
 
 export const authLogout = () => async dispatch => {
@@ -52,7 +61,6 @@ export const authLogout = () => async dispatch => {
         type: AUTH_LOGOUT,
         payload: auth
     });
-
 };
 
 export const fetchTests = () => async (dispatch, getState) => {

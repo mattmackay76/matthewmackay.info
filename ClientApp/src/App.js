@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { authLogin } from './actions';
-import LayoutComponent from './components/layoutComponent';
+import Layout from './components/Layout';
   
 
 class App extends React.Component
@@ -12,7 +12,7 @@ class App extends React.Component
 
     render() {
         return (
-            <LayoutComponent />
+            <Layout />
         );
     }
 }

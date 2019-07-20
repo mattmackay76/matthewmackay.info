@@ -3,7 +3,7 @@ import { NavLink, withRouter  } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { authLogout } from '../actions';
 
-class NavComponent extends Component {
+class Nav extends Component {
 
     componentDidMount() {
     }
@@ -36,4 +36,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, { authLogout } )(NavComponent));
+export default withRouter(connect(mapStateToProps, { authLogout })(Nav));
