@@ -8,15 +8,10 @@ class Demos extends Component {
     componentDidMount() {
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    render() {
         if (!this.props.isLoggedIn)
             this.props.history.push('/'); //redirects us back to the root since user is not logged in
-        return true;
-    }
 
-
-    render() {
-  
         return (
             <article className="content">
                 <h4>Demos</h4>
