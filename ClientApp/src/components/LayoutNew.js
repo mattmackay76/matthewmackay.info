@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';        
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -58,23 +58,23 @@ class Layout extends Component {
                         </nav>
 
                         <Switch>
-                            <Route path="/" exact component={()=><Resume />} />
+                            <Route path="/" exact component={() => <Resume />} />
                             <Route path="/resume" component={() => <Resume />} />
                             <Route path="/skills" component={() => <Skills />} />
                             <Route path="/demos" component={() => <Demos />} />
                         </Switch>
-                
+
                         <footer className="footer">
                             <span className="copyright">
                                 Copyright 2019, all rights reserved.
                             </span>
                         </footer>
-                    
+
                     </div>
-                <ToastContainer />
-            </div>
+                    <ToastContainer />
+                </div>
             </BrowserRouter>
-            
+
         );
     }
 }
