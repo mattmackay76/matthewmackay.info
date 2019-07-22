@@ -1,9 +1,31 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';  
-import FakeComponent from '../Fake';
+import { toast } from 'react-toastify';
 
 class Demos extends Component {
+
+    constructor(props) {
+
+        super(props);
+        this.state = {};
+    }
+
+    handleChange = (event) => {
+        //straight out'a reactjs.org
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    };
+
+    handleSubmit = (event) => {
+        toast('form submitted');
+        event.preventDefault();
+    };
 
     componentDidMount() {
     }
@@ -14,8 +36,11 @@ class Demos extends Component {
 
         return (
             <article className="content">
-                <h4>Demos</h4>
-                <FakeComponent />
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        <input name="name" value={this.state.name} onChange={this.handleChange} />
+                    </label>
+                </form>                
             </article>
         );
     }

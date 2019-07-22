@@ -1,4 +1,5 @@
 ﻿using MatthewMackay.Info.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,41 @@ namespace MatthewMackay.Info.Services
             _testCollection = database.GetCollection<Test>(dbSettings.TestCollectionName);
         }
 
-//        public List<Test> Get() => _testCollection.Find<Test>(t => true).ToList();
+        public async Task<List<Test>> GetAll(int userId) => 
+            (await _testCollection.FindAsync(t => t.UserId == userId)).ToList();
 
-        public async Task<List<Test>> Get() => (await _testCollection.FindAsync<Test>(t => true)).ToList();
+        public async Task<Test> Get(int userId, ObjectId Id) =>
+             await _testCollection.Find(t => t.Id == Id && t.UserId == userId)
+                .FirstOrDefaultAsync();
+            
 
 
-        public void Put(Test test) => _testCollection.InsertOne(test);
+        public async Task<Test> Upsert(int userId, Test item)
+        {
+            try
+            {
+                item.UserId = userId;
+                ReplaceOneResult actionResult
+                    = await _testCollection
+                                    .ReplaceOneAsync(n => n.Id.Equals(item.Id)
+                                            , item
+                                            , new UpdateOptions { IsUpsert = true });
+
+                if (!actionResult.IsAcknowledged)
+                    throw new Exception("Unable to upsert");
+
+                return item;
+
+            }
+            catch (Exception ex)
+            {
+                // log or manage the exception
+                throw ex;
+            }
+        }
+
+
+        public void Insert(Test test) => _testCollection.InsertOne(test);
 
     }
 }
