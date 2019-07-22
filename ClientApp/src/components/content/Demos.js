@@ -25,8 +25,9 @@ class Demos extends Component {
     };
 
     handleSubmit = (event) => {
-        this.props.postTest(this.state.someData);
         event.preventDefault();
+        var id = this.props.test ? this.props.test.id : undefined;
+        this.props.postTest(this.state.someData, id);
     };
 
     componentDidMount() {

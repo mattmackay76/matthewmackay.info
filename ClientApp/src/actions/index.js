@@ -63,8 +63,14 @@ export const authLogout = () => async dispatch => {
     });
 };
 
-export const postTest = (someData) => async (dispatch, getState) => {
+export const postTest = (someData, id) => async (dispatch, getState) => {
+    debugger;
     const token = getState().authReducer.token;
+    let body = { someData };
+
+    if (id)
+        body = { id, someData };
+    
     const params = {
         method: 'POST',
         headers: {
@@ -72,7 +78,7 @@ export const postTest = (someData) => async (dispatch, getState) => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ someData })
+        body: JSON.stringify(body)
     };
 
     const res = await fetch('/api/SampleData/Test', params);

@@ -3,7 +3,7 @@
 export default (state = null, action) => {
     switch (action.type) {
         case POST_TEST:
-            return action.payload;
+            return { ...state, ...action.payload };
         default:
             return state;
     }
