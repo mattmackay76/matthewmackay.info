@@ -5,4 +5,4 @@ export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
 export const SETFLAG = 'SETFLAG';
 
-export const FETCH_TESTS = 'FETCH_TESTS';
+export const POST_TEST = 'POST_TEST';

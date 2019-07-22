@@ -1,5 +1,5 @@
 ﻿import {
-    INITIAL_AUTH_STATE, FETCH_TESTS,
+    INITIAL_AUTH_STATE, POST_TEST,
     AUTH_LOGIN, AUTH_LOGOUT, SETFLAG
 } from './types';
 import { INVALID_LOGIN_ATTEMPT } from './constants';
@@ -63,23 +63,24 @@ export const authLogout = () => async dispatch => {
     });
 };
 
-export const fetchTests = () => async (dispatch, getState) => {
+export const postTest = (someData) => async (dispatch, getState) => {
     const token = getState().authReducer.token;
     const params = {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
-        }
+        },
+        body: JSON.stringify({ someData })
     };
 
-    const res = await fetch('/api/Auth/GenerateKey', params );
-    //const json = await res.json();
-    const text = await res.text();
-    
+    const res = await fetch('/api/SampleData/Test', params);
+    const json = await res.json();
+
     dispatch({
-        type: FETCH_TESTS,
-        payload: text
+        type: POST_TEST,
+        payload: json
     });
 };
+

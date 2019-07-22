@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import { connect } from 'react-redux';
-import { fetchTests, authLogin } from '../actions';
+import { authLogin } from '../actions';
 
 import './Layout.css'
 import Nav from './Nav';
@@ -86,4 +86,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { fetchTests, authLogin })(Layout);
+export default connect(mapStateToProps, { authLogin })(Layout);

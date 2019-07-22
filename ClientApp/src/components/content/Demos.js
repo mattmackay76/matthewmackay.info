@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';  
 import { toast } from 'react-toastify';
 
+import { postTest } from '../../actions';
+
 class Demos extends Component {
 
     constructor(props) {
@@ -23,7 +25,7 @@ class Demos extends Component {
     };
 
     handleSubmit = (event) => {
-        toast('form submitted');
+        this.props.postTest(this.state.someData);
         event.preventDefault();
     };
 
@@ -33,13 +35,16 @@ class Demos extends Component {
     render() {
         if (!this.props.isLoggedIn)
             this.props.history.push('/'); //redirects us back to the root since user is not logged in
-
+        let newId = this.props.test ?
+            <span>InsertedId: {this.props.test.id}</span> : null;
         return (
             <article className="content">
+                {newId}
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        <input name="name" value={this.state.name} onChange={this.handleChange} />
+                        <input name="someData" value={this.state.someData} onChange={this.handleChange} />
                     </label>
+                    <input type="submit" value="Add" className="ui primary button" />
                 </form>                
             </article>
         );
@@ -56,4 +61,4 @@ const mapStateToProps = (state) => {
 };
 
 //withRouter so that we have access to this.pops.history
-export default withRouter(connect(mapStateToProps, {})(Demos)); 
+export default withRouter(connect(mapStateToProps, { postTest })(Demos)); 

@@ -1,8 +1,8 @@
-﻿import { FETCH_TESTS } from '../actions/types';
+﻿import { POST_TEST } from '../actions/types';
 
 export default (state = null, action) => {
     switch (action.type) {
-        case FETCH_TESTS:
+        case POST_TEST:
             return action.payload;
         default:
             return state;
