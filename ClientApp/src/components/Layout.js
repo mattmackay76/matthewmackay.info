@@ -39,7 +39,7 @@ class Layout extends Component {
                                 <span>software engineer</span>
                             </section>
                             <div className="center">
-                                <img src="../mugshot.png" alt="Matthew Mackay, software engineer!" />
+                                <img src="/mugshot.png" alt="Matthew Mackay, software engineer!" />
                             </div>
                             <ul>
                                 <li>one</li>
@@ -71,7 +71,7 @@ class Layout extends Component {
                         </footer>
 
                     </div>
-                    <ToastContainer />
+                    <ToastContainer autoClose={2000} hideProgressBar={true} />
                 </div>
             </BrowserRouter>
 

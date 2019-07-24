@@ -30,6 +30,7 @@ namespace MatthewMackay.Info.Models
         public int? UserId { get; set; }
 
         public string SomeData { get; set; }
-        
+        public string SomeOtherData { get; set; }
+
     }
 }

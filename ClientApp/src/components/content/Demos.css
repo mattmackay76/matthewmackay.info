@@ -1,0 +1,8 @@
+﻿#demos .ui.label {
+    background: #94182f;
+    color: white;
+}
+
+@media (min-width: 600px) {
+
+}

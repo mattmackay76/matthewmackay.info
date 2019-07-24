@@ -1,8 +1,10 @@
-﻿import {
+﻿import { toast } from 'react-toastify';
+import {
     INITIAL_AUTH_STATE, POST_TEST,
     AUTH_LOGIN, AUTH_LOGOUT, SETFLAG
 } from './types';
-import { INVALID_LOGIN_ATTEMPT } from './constants';
+import { INVALID_LOGIN_ATTEMPT, EXPIRED_LOGIN_ATTEMPT  } from './constants';
+
 
 
 export const setFlag = (flags) => async (dispatch, getState) => {
@@ -63,13 +65,12 @@ export const authLogout = () => async dispatch => {
     });
 };
 
-export const postTest = (someData, id) => async (dispatch, getState) => {
-    debugger;
+export const postTest = (formData, id) => async (dispatch, getState) => {
     const token = getState().authReducer.token;
-    let body = { someData };
+    let body = { ...formData };
 
     if (id)
-        body = { id, someData };
+        body = { id, ...formData };
     
     const params = {
         method: 'POST',
@@ -81,12 +82,22 @@ export const postTest = (someData, id) => async (dispatch, getState) => {
         body: JSON.stringify(body)
     };
 
-    const res = await fetch('/api/SampleData/Test', params);
-    const json = await res.json();
-
-    dispatch({
-        type: POST_TEST,
-        payload: json
-    });
+    let res = null; //response
+    try {
+        res = await fetch('/api/SampleData/Test', params);
+        const json = await res.json();
+        dispatch({
+            type: POST_TEST,
+            payload: json
+        });
+    } catch(e) {
+        if (res.status == 401) {
+            dispatch(setFlag({
+                [EXPIRED_LOGIN_ATTEMPT]: true
+            }));
+            dispatch(authLogout());
+            
+        }
+    }
 };
 

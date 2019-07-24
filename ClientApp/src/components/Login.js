@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { authLogin, setFlag } from '../actions';
-import { INVALID_LOGIN_ATTEMPT } from '../actions/constants';
+import { INVALID_LOGIN_ATTEMPT, EXPIRED_LOGIN_ATTEMPT } from '../actions/constants';
 
 class Login extends Component
 {
@@ -38,10 +38,17 @@ class Login extends Component
     //Gets run when state changes but even if render not needed/called
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps.flags[INVALID_LOGIN_ATTEMPT]) {
-            toast("Invalid login");
+            toast.error("Invalid login");
             this.props.setFlag({ [INVALID_LOGIN_ATTEMPT]: undefined });
             return false; //no need to update/re-render this component in this case
         }
+        if (nextProps.flags[EXPIRED_LOGIN_ATTEMPT ]) {
+            toast.error("Login Expired");
+            this.props.setFlag({ [EXPIRED_LOGIN_ATTEMPT]: undefined });
+            this.props.history.push('/');
+            return false; //no need to update/re-render this component in this case
+        }
+        
         return true;
     }
 
