@@ -103,7 +103,8 @@ class Demos extends Component {
                 
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        <span>someData: </span><input
+                        <span>someData: </span>
+                        <input
                             name="someData" placeholder=""
                             value={this.state.formData.someData}
                             className={shouldMarkError("someData") ? 'error' : ''}
@@ -121,7 +122,8 @@ class Demos extends Component {
                     <div className="ui divider" />
 
                     <label>
-                        <span>someOtherData: </span><input
+                        <span>someOtherData: </span>
+                        <input
                             name="someOtherData"
                             className={shouldMarkError("someOtherData") ? 'error' : ''}
                             value={this.state.formData.someOtherData}
@@ -131,7 +133,7 @@ class Demos extends Component {
                             className="ui pointing above label"
                             style={!shouldMarkError("someOtherData") ? { display: 'none' } : {}}>
                             {messages["someOtherData"].map(e => (
-                                <p>{ e }</p>
+                                <p>{e}</p>
                             ))}
                         </div>
                     </label>

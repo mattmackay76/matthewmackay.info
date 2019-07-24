@@ -147,4 +147,9 @@ article {
         grid-row: body;
         grid-column: content;
     }
+    
+    .profile img {
+        width: 100%;
+        max-width: 250px;
+    }
 }
