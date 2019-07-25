@@ -97,48 +97,36 @@ class Demos extends Component {
             return hasError ? shouldShow : false;
         };
 
+        let inputJsx = (label, name, id) => (
+        <label>
+                <span key={`span-${name + id}`}>{label}: </span>
+            <input
+                    key={`input-${name + id}`}
+                name={name} placeholder=""
+                value={this.state.formData[name]}
+                className={shouldMarkError(name) ? 'error' : ''}
+                onChange={this.handleChange}
+                onBlur={this.handleBlur(name)} />
+            <div
+                    key={`error-${name + id}`}
+                className="ui pointing above label"
+                style={!shouldMarkError(name) ? { display: 'none' } : {}}>
+                    {messages[name].map((e,i) => (
+                        <p key={`p-${i + name + id}`}>{e}</p>
+                    ))}
+            </div>
+        </label>);
 
         return (
             <article id="demos" className="content">
                 
                 <form onSubmit={this.handleSubmit}>
-                    <label>
-                        <span>someData: </span>
-                        <input
-                            name="someData" placeholder=""
-                            value={this.state.formData.someData}
-                            className={shouldMarkError("someData") ? 'error' : ''}
-                            onChange={this.handleChange}
-                            onBlur={this.handleBlur("someData")} />
-                        <div
-                            className="ui pointing above label"
-                            style={!shouldMarkError("someData") ? { display: 'none' } : {}}>
-                            {messages["someData"].map(e => (
-                                <p>{e}</p>
-                            ))}
-                        </div>
-                    </label>
-                    
-                    <div className="ui divider" />
+                   
+                    {inputJsx("someDataLabel", "someData", 1 )}
+                        <div className="ui divider" />
+                    {inputJsx("someOtherDataLabel", "someOtherData", 2)}
+                        <div className="ui divider" />
 
-                    <label>
-                        <span>someOtherData: </span>
-                        <input
-                            name="someOtherData"
-                            className={shouldMarkError("someOtherData") ? 'error' : ''}
-                            value={this.state.formData.someOtherData}
-                            onChange={this.handleChange}
-                            onBlur={this.handleBlur("someOtherData")} />
-                        <div
-                            className="ui pointing above label"
-                            style={!shouldMarkError("someOtherData") ? { display: 'none' } : {}}>
-                            {messages["someOtherData"].map(e => (
-                                <p>{e}</p>
-                            ))}
-                        </div>
-                    </label>
-
-                    <div className="ui divider" />
                     <input disabled={isDisabled} type="submit" value={ !this.props.isLoaded ? 'Add': 'Update'} className="ui primary button" />
                 </form>                
             </article>

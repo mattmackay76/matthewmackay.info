@@ -22,7 +22,7 @@ a {
 
 .layout {
     display: grid;
-    max-width: 1024px;
+    max-width: 1400px;
     margin: 0 auto;
     font: 1.2em Helvetica, arial, sans-serif;
 }
@@ -57,7 +57,7 @@ a {
 }
 
 .profile section .name {
-    font-size: larger;
+    font-size: small;
     font-weight: bold;
 }
 
@@ -118,9 +118,10 @@ article {
 
 @media (min-width: 600px) {
     .layout {
-        grid-template-columns: [left-gutter] .1fr [sidebar] 4fr [content] 8fr [right-gutter] .1fr;
+        grid-template-columns: [left-gutter] .1fr [sidebar] 3fr [content] 9fr [right-gutter] .1fr;
         grid-template-rows: [header] 50px [body] auto [footer] 50px;
         grid-gap: 5px 10px;
+        font: 1em Helvetica, arial, sans-serif;
     }
 
     .header {
@@ -150,6 +151,27 @@ article {
     
     .profile img {
         width: 100%;
-        max-width: 250px;
+        max-width: 150px;
+    }
+}
+
+@media (min-width: 800px) {
+    .profile section .name {
+        font-size: larger;
+        font-weight: bold;
+    }
+}
+
+@media (min-width: 1024px) {
+    .layout {
+        grid-template-columns: [left-gutter] .1fr [sidebar] 2fr [content] 10fr [right-gutter] .1fr;
+        grid-template-rows: [header] 50px [body] auto [footer] 50px;
+        grid-gap: 5px 10px;
+        font: 1.2em Helvetica, arial, sans-serif;
+    }
+
+    .profile section .name {
+        font-size: large;
+        font-weight: bold;
     }
 }
