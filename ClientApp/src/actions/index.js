@@ -1,5 +1,4 @@
-﻿import { toast } from 'react-toastify';
-import {
+﻿import {
     INITIAL_AUTH_STATE, POST_TEST,
     AUTH_LOGIN, AUTH_LOGOUT, SETFLAG
 } from './types';
@@ -91,7 +90,7 @@ export const postTest = (formData, id) => async (dispatch, getState) => {
             payload: json
         });
     } catch(e) {
-        if (res.status == 401) {
+        if (res.status === 401) {
             dispatch(setFlag({
                 [EXPIRED_LOGIN_ATTEMPT]: true
             }));

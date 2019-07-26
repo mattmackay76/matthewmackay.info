@@ -1,6 +1,9 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';  
+import { Segment, Sidebar } from 'semantic-ui-react'
+
+
 import "./Demos.css";
 //import { toast } from 'react-toastify';
 
@@ -36,8 +39,12 @@ class Demos extends Component {
             touched: {
                 someData: false,
                 someOtherData: false
-            }
+            },
+            sideBarVisible: false,
+            sideBarTwoVisible: false,
         };
+            
+        
     }
 
     handleChange = (event) => {
@@ -73,6 +80,17 @@ class Demos extends Component {
         });
     };
 
+    toggleSidebar = () =>
+        this.setState({
+            sideBarVisible: !this.state.sideBarVisible
+        });
+
+    toggleSidebarTwo = () =>
+        this.setState({
+            sideBarTwoVisible: !this.state.sideBarTwoVisible
+        });
+    
+
     canBeSubmitted() {
         const validation = validate(this.state.formData.someData, this.state.formData.someOtherData);
         const isDisabled = Object.keys(validation.errors).some(x => validation.errors[x]);
@@ -98,37 +116,80 @@ class Demos extends Component {
         };
 
         let inputJsx = (label, name, id) => (
-        <label>
-                <span key={`span-${name + id}`}>{label}: </span>
+        <label key={id}>
+                <span>{label}: </span>
             <input
-                    key={`input-${name + id}`}
                 name={name} placeholder=""
                 value={this.state.formData[name]}
                 className={shouldMarkError(name) ? 'error' : ''}
                 onChange={this.handleChange}
                 onBlur={this.handleBlur(name)} />
             <div
-                    key={`error-${name + id}`}
                 className="ui pointing above label"
                 style={!shouldMarkError(name) ? { display: 'none' } : {}}>
                     {messages[name].map((e,i) => (
-                        <p key={`p-${i + name + id}`}>{e}</p>
+                        <p key={i}>{e}</p>
                     ))}
             </div>
         </label>);
 
         return (
             <article id="demos" className="content">
-                
-                <form onSubmit={this.handleSubmit}>
-                   
-                    {inputJsx("someDataLabel", "someData", 1 )}
-                        <div className="ui divider" />
-                    {inputJsx("someOtherDataLabel", "someOtherData", 2)}
-                        <div className="ui divider" />
 
-                    <input disabled={isDisabled} type="submit" value={ !this.props.isLoaded ? 'Add': 'Update'} className="ui primary button" />
-                </form>                
+                <Sidebar.Pushable as={Segment} style={{minHeight: '500px'}}>
+                    <Sidebar
+                        animation='push'
+                        icon='labeled'
+                        onHide={this.handleSidebarHide}
+                        direction='top'
+                        visible={this.state.sideBarVisible}
+                        style={{backgroundColor: 'white'}}
+                    >
+                        <form onSubmit={this.handleSubmit}>
+
+                            {inputJsx("someDataLabel", "someData", 1)}
+                            <div className="ui divider" />
+                            {inputJsx("someOtherDataLabel", "someOtherData", 2)}
+                            <div className="ui divider" />
+
+                            <input disabled={isDisabled} type="submit" value={!this.props.isLoaded ? 'Add' : 'Update'} className="ui primary button" />
+                        </form>  
+                        <button onClick={this.toggleSidebar} className="ui button primary">close</button>
+                    </Sidebar>
+                    <Sidebar
+                        animation='push'
+                        icon='labeled'
+                        onHide={this.handleSidebarHide}
+                        direction='top'
+                        visible={this.state.sideBarTwoVisible}
+                        style={{ backgroundColor: 'white' }}
+                    >
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                        </ul>
+                        <ul>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                        </ul>
+                        <button onClick={this.toggleSidebarTwo} className="ui button primary">close</button>
+                    </Sidebar>
+                    <button onClick={this.toggleSidebar} style={{ float: 'right', position: 'absolute', top: '70vh', left: '0' }}>Sidebar</button>    
+                    <button onClick={this.toggleSidebarTwo} style={{ float: 'right', position: 'absolute', top: '70vh', left: '40vw'  }}>Sidebar2</button>
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                </Sidebar.Pushable>
             </article>
         );
     }
