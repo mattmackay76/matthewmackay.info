@@ -33,24 +33,23 @@ a {
     padding: 10px;
 }
 
-.header, .footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .layout > .header, .layout > .footer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-size: 10pt;
+    }
 
-    background-color: black;
-    color: white;
-    text-align: center;
-    font-size: 10pt;
-}
+    .layout >  .header a {
+        color: white;
+    }
 
-.header a {
-    color: white;
-}
-
-.footer .copyright {
-    font-size: x-small;
-}
+    .layout > .footer .copyright {
+        font-size: x-small;
+    }
 
 .profile > section {
     padding-bottom: 10px;
@@ -124,12 +123,12 @@ article {
         font: 1em Helvetica, arial, sans-serif;
     }
 
-    .header {
-        grid-row: header;
-        grid-column: sidebar
+    .layout > .header {
+            grid-row: header;
+            grid-column: sidebar
     }
 
-    .footer {
+    .layout > .footer {
         grid-row: footer;
         grid-column: sidebar / right-gutter;
     }

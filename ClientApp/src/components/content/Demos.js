@@ -2,6 +2,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';  
 import { Segment, Sidebar } from 'semantic-ui-react'
+import { Image, List } from 'semantic-ui-react'
 
 
 import "./Demos.css";
@@ -42,6 +43,16 @@ class Demos extends Component {
             },
             sideBarVisible: false,
             sideBarTwoVisible: false,
+            companyList: {
+                '1': { name: 'company one' },
+                '2': { name: 'company two' },
+                '3': { name: 'company three' },
+                '4': { name: 'company four' },
+                '5': { name: 'company five' },
+                '6': { name: 'company six' },
+                '7': { name: 'company seven' },
+
+    },
         };
             
         
@@ -180,18 +191,25 @@ class Demos extends Component {
                         </ul>
                         <button onClick={this.toggleSidebarTwo} className="ui button primary">close</button>
                     </Sidebar>
-                    
-                    <ul>
-                        <li>3</li>
-                        <li>4</li>
-                        <li>3</li>
-                        <li>4</li>
-                        <li>3</li>
-                        <li>4</li>
-                        <li>3</li>
-                        <li>4</li>
-                        <li>main panel</li>
-                    </ul>
+
+                    <List selection divided verticalAlign='middle' style={{height: '50%', overflow: 'auto'}} >
+                        {Object.keys(this.state.companyList).map((id, idx) => (
+                            <List.Item onClick={() => {
+                                let company = this.state.companyList[id];
+                                company.name += company.name;
+                                this.setState(...this.state, company);
+                            }} key={id}>
+                                <Image avatar src={`https://robohash.org/${id}.png?size=50x50`} />
+                                <List.Content>
+                                    <List.Header>{this.state.companyList[id].name}</List.Header>
+                                </List.Content>
+                                <List.Content floated='right'>
+                                    <i className="icon pencil alternate " />
+                                </List.Content>
+                            </List.Item>
+                        ))}
+                    </List>
+
                     <button onClick={this.toggleSidebar}>Sidebar</button>
                     <button onClick={this.toggleSidebarTwo}>Sidebar2</button>
 
