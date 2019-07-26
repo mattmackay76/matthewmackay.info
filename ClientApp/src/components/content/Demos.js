@@ -136,7 +136,7 @@ class Demos extends Component {
         return (
             <article id="demos" className="content">
 
-                <Sidebar.Pushable as={Segment} style={{minHeight: '500px'}}>
+                <Sidebar.Pushable as={Segment}>
                     <Sidebar
                         animation='push'
                         icon='labeled'
@@ -180,15 +180,21 @@ class Demos extends Component {
                         </ul>
                         <button onClick={this.toggleSidebarTwo} className="ui button primary">close</button>
                     </Sidebar>
-                    <button onClick={this.toggleSidebar} style={{ float: 'right', position: 'absolute', top: '70vh', left: '0' }}>Sidebar</button>    
-                    <button onClick={this.toggleSidebarTwo} style={{ float: 'right', position: 'absolute', top: '70vh', left: '40vw'  }}>Sidebar2</button>
+                    
                     <ul>
-                        <li>1</li>
-                        <li>2</li>
                         <li>3</li>
                         <li>4</li>
-                        <li>5</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>main panel</li>
                     </ul>
+                    <button onClick={this.toggleSidebar}>Sidebar</button>
+                    <button onClick={this.toggleSidebarTwo}>Sidebar2</button>
+
                 </Sidebar.Pushable>
             </article>
         );
