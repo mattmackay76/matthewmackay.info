@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';  
 import { Segment, Sidebar } from 'semantic-ui-react'
-import { Image, List } from 'semantic-ui-react'
+import { Image, List, Header, Table, Rating } from 'semantic-ui-react'
 
 
 import "./Demos.css";
@@ -44,13 +44,18 @@ class Demos extends Component {
             sideBarVisible: false,
             sideBarTwoVisible: false,
             companyList: {
-                '1': { name: 'company one' },
-                '2': { name: 'company two' },
-                '3': { name: 'company three' },
-                '4': { name: 'company four' },
-                '5': { name: 'company five' },
-                '6': { name: 'company six' },
-                '7': { name: 'company seven' },
+                '1': { name: 'company one', someText: 'some text one' },
+                '2': { name: 'company two', someText: 'some text two' },
+                '3': { name: 'company three', someText: 'some text three' },
+                '4': { name: 'company four', someText: 'some text four' },
+                '5': { name: 'company five', someText: 'some text five' },
+                '6': { name: 'company six', someText: 'some text six' },
+                '8': { name: 'company seven', someText: 'some text seven' },
+                '9': { name: 'company eight', someText: 'some text eight' },
+                '10': { name: 'company nine', someText: 'some text nine' },
+                '11': { name: 'company ten', someText: 'some text ten' },
+                '12': { name: 'company eleven', someText: 'some text eleven' },
+                '13': { name: 'company twelve', someText: 'some text twelve' },
 
     },
         };
@@ -142,12 +147,49 @@ class Demos extends Component {
                         <p key={i}>{e}</p>
                     ))}
             </div>
-        </label>);
+            </label>);
+
+        const TableExamplePadded = () => (
+            <Table celled padded>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell singleLine>Evidence Rating</Table.HeaderCell>
+                        <Table.HeaderCell>Effect</Table.HeaderCell>
+                        <Table.HeaderCell>Efficacy</Table.HeaderCell>
+                        <Table.HeaderCell>Consensus</Table.HeaderCell>
+                        <Table.HeaderCell>Comments</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+
+                <Table.Body>
+                    <Table.Row>
+                        <Table.Cell>
+                            <Header as='h2' textAlign='center'>
+                                A
+                             </Header>
+                        </Table.Cell>
+                        <Table.Cell singleLine>Power Output</Table.Cell>
+                        <Table.Cell>
+                            <Rating icon='star' defaultRating={3} maxRating={3} />
+                        </Table.Cell>
+                        <Table.Cell textAlign='right'>
+                            80% <br />
+                            <a>18 studies</a>
+                        </Table.Cell>
+                        <Table.Cell>
+                            Creatine supplementation is the reference compound for increasing muscular creatine
+                            levels; there is variability in this increase, however, with some nonresponders.
+                        </Table.Cell>
+                    </Table.Row>
+                </Table.Body>
+            </Table>
+        );
 
         return (
             <article id="demos" className="content">
 
                 <Sidebar.Pushable as={Segment}>
+                <div id='someTest'>
                     <Sidebar
                         animation='push'
                         icon='labeled'
@@ -192,27 +234,31 @@ class Demos extends Component {
                         <button onClick={this.toggleSidebarTwo} className="ui button primary">close</button>
                     </Sidebar>
 
-                    <List selection divided verticalAlign='middle' style={{height: '50%', overflow: 'auto'}} >
+                    <h4>Select or add a new employee</h4>
+
+                    <List selection divided verticalAlign='middle' style={{overflow: 'auto', maxHeight: '400px'}} >
                         {Object.keys(this.state.companyList).map((id, idx) => (
-                            <List.Item onClick={() => {
-                                let company = this.state.companyList[id];
-                                company.name += company.name;
-                                this.setState(...this.state, company);
-                            }} key={id}>
+                            <List.Item key={id}>
                                 <Image avatar src={`https://robohash.org/${id}.png?size=50x50`} />
                                 <List.Content>
                                     <List.Header>{this.state.companyList[id].name}</List.Header>
+                                    <List.Description>
+                                        <List.Header>{this.state.companyList[id].someText}</List.Header>
+                                    </List.Description>
                                 </List.Content>
                                 <List.Content floated='right'>
-                                    <i className="icon pencil alternate " />
+                                    <i onClick={this.toggleSidebar} className="icon pencil alternate" />
                                 </List.Content>
+                                
+                                
                             </List.Item>
                         ))}
                     </List>
-
+                    
+                    {TableExamplePadded()}
                     <button onClick={this.toggleSidebar}>Sidebar</button>
                     <button onClick={this.toggleSidebarTwo}>Sidebar2</button>
-
+                </div>
                 </Sidebar.Pushable>
             </article>
         );

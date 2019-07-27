@@ -143,7 +143,7 @@ article {
         grid-column: sidebar;
     }
 
-    .content {
+    .layout > .content {
         grid-row: body;
         grid-column: content;
     }
