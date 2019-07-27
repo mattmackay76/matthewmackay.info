@@ -9,6 +9,7 @@ import "./Demos.css";
 //import { toast } from 'react-toastify';
 
 import { postTest } from '../../actions';
+import reducers from '../../reducers';
 
 function validate(someData, someOtherData) {
     // true means invalid, so our conditions got reversed
@@ -196,7 +197,8 @@ class Demos extends Component {
                         onHide={this.handleSidebarHide}
                         direction='top'
                         visible={this.state.sideBarVisible}
-                        style={{backgroundColor: 'white'}}
+                        style={{ backgroundColor: 'white' }}
+                        className="demoDropdown"
                     >
                         <form onSubmit={this.handleSubmit}>
 
@@ -216,6 +218,7 @@ class Demos extends Component {
                         direction='top'
                         visible={this.state.sideBarTwoVisible}
                         style={{ backgroundColor: 'white' }}
+                        className="demoDropdown"
                     >
                         <ul>
                             <li>1</li>
@@ -234,9 +237,20 @@ class Demos extends Component {
                         <button onClick={this.toggleSidebarTwo} className="ui button primary">close</button>
                     </Sidebar>
 
-                    <h4>Select or add a new employee</h4>
-
-                    <List selection divided verticalAlign='middle' style={{overflow: 'auto', maxHeight: '400px'}} >
+                    <div>
+                            <h4 style={{display: 'inline-block'}}>Select or add a new employee</h4>
+                            <button onClick={this.toggleSidebarTwo} className="ui button primary" style={
+                                {
+                                    float: 'right',
+                                    position: 'relative',
+                                    display: 'table',
+                                    padding: '10px',
+                                }}>
+                                <i className="ui icon plus square outline" style={{display: 'table-cell'}} />
+                            </button>
+                    </div>
+                    
+                    <List selection divided verticalAlign='middle' style={{overflow: 'auto', maxHeight: '350px', marginTop: '20px'}} >
                         {Object.keys(this.state.companyList).map((id, idx) => (
                             <List.Item key={id}>
                                 <Image avatar src={`https://robohash.org/${id}.png?size=50x50`} />

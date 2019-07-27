@@ -56,7 +56,7 @@ a {
 }
 
 .profile section .name {
-    font-size: small;
+    font-size: large;
     font-weight: bold;
 }
 
@@ -152,11 +152,17 @@ article {
         width: 100%;
         max-width: 150px;
     }
+
+    .profile section .name {
+        font-size: medium;
+        font-weight: bold;
+    }
+
 }
 
 @media (min-width: 800px) {
     .profile section .name {
-        font-size: larger;
+        font-size: large;
         font-weight: bold;
     }
 }
@@ -170,7 +176,7 @@ article {
     }
 
     .profile section .name {
-        font-size: large;
+        font-size: larger;
         font-weight: bold;
     }
 }

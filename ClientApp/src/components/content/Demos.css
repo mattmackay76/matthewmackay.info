@@ -36,8 +36,13 @@
     display:none;
 }
 
-@media (min-width: 600px) {
+#demos .demoDropdown {
+    background-color: ghostwhite !important;
+    border-radius: 5px !important;
+    padding: 10px;
+}
 
+@media (min-width: 600px) {
     #demos form {
         display: grid;
         grid-template-columns: [left] 4fr [right] 4fr;
