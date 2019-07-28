@@ -4,15 +4,11 @@ import { withRouter } from 'react-router-dom';
 import { Segment, Sidebar } from 'semantic-ui-react'
 import { Image, List, Header, Table, Rating } from 'semantic-ui-react'
 
-
 import "./Demos.css";
-//import { toast } from 'react-toastify';
-
 import { postTest } from '../../actions';
-import reducers from '../../reducers';
+
 
 function validate(someData, someOtherData) {
-    // true means invalid, so our conditions got reversed
     let validation = {
         errors: {
             someData: someData.length === 0,
@@ -29,7 +25,7 @@ function validate(someData, someOtherData) {
 class Demos extends Component {
 
     constructor(props) {
-
+    
         super(props);
         //NOTE: If you do not initialize these form elements you'll get a warning
         //because the component doesn't have an initial value, react will think it's uncontrollered
@@ -42,8 +38,8 @@ class Demos extends Component {
                 someData: false,
                 someOtherData: false
             },
-            sideBarVisible: false,
-            sideBarTwoVisible: false,
+            addEmployeeBarVisible: false,
+            addEmployeeDependentsBarVisible: false,
             companyList: {
                 '1': { name: 'company one', someText: 'some text one' },
                 '2': { name: 'company two', someText: 'some text two' },
@@ -57,8 +53,7 @@ class Demos extends Component {
                 '11': { name: 'company ten', someText: 'some text ten' },
                 '12': { name: 'company eleven', someText: 'some text eleven' },
                 '13': { name: 'company twelve', someText: 'some text twelve' },
-
-    },
+            },
         };
             
         
@@ -99,12 +94,12 @@ class Demos extends Component {
 
     toggleSidebar = () =>
         this.setState({
-            sideBarVisible: !this.state.sideBarVisible
+            addEmployeeBarVisible: !this.state.addEmployeeBarVisible
         });
 
     toggleSidebarTwo = () =>
         this.setState({
-            sideBarTwoVisible: !this.state.sideBarTwoVisible
+            addEmployeeDependentsBarVisible: !this.state.addEmployeeDependentsBarVisible
         });
     
 
@@ -186,29 +181,32 @@ class Demos extends Component {
             </Table>
         );
 
+        let oldForm = (
+            <form onSubmit={this.handleSubmit}>
+
+                {inputJsx("someDataLabel", "someData", 1)}
+                <div className="ui divider" />
+                {inputJsx("someOtherDataLabel", "someOtherData", 2)}
+                <div className="ui divider" />
+                <input disabled={isDisabled} type="submit" value={this.props.isLoaded ? 'Update' : 'Add'} className="ui primary button" />
+            </form>  
+        );
+
         return (
             <article id="demos" className="content">
-
                 <Sidebar.Pushable as={Segment}>
-                <div id='someTest'>
+                <div className='demoWrapper'>
                     <Sidebar
                         animation='push'
                         icon='labeled'
                         onHide={this.handleSidebarHide}
                         direction='top'
-                        visible={this.state.sideBarVisible}
+                        visible={this.state.addEmployeeBarVisible}
                         style={{ backgroundColor: 'white' }}
                         className="demoDropdown"
-                    >
-                        <form onSubmit={this.handleSubmit}>
-
-                            {inputJsx("someDataLabel", "someData", 1)}
-                            <div className="ui divider" />
-                            {inputJsx("someOtherDataLabel", "someOtherData", 2)}
-                            <div className="ui divider" />
-
-                            <input disabled={isDisabled} type="submit" value={!this.props.isLoaded ? 'Add' : 'Update'} className="ui primary button" />
-                        </form>  
+                        >
+                            {oldForm}
+                    
                         <button onClick={this.toggleSidebar} className="ui button primary">close</button>
                     </Sidebar>
                     <Sidebar
@@ -216,7 +214,7 @@ class Demos extends Component {
                         icon='labeled'
                         onHide={this.handleSidebarHide}
                         direction='top'
-                        visible={this.state.sideBarTwoVisible}
+                        visible={this.state.addEmployeeDependentsBarVisible}
                         style={{ backgroundColor: 'white' }}
                         className="demoDropdown"
                     >
@@ -263,8 +261,6 @@ class Demos extends Component {
                                 <List.Content floated='right'>
                                     <i onClick={this.toggleSidebar} className="icon pencil alternate" />
                                 </List.Content>
-                                
-                                
                             </List.Item>
                         ))}
                     </List>
