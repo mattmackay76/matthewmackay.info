@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { authLogin } from '../../services/auth/actions';
-import { setFlag } from '../../actions';
-import { INVALID_LOGIN_ATTEMPT, EXPIRED_LOGIN_ATTEMPT } from '../../actions/constants';
+import { setFlag } from '../../services/flags/actions';
+import { INVALID_LOGIN_ATTEMPT, EXPIRED_LOGIN_ATTEMPT } from '../../services/flags/constants';
 
 class Login extends Component
 {

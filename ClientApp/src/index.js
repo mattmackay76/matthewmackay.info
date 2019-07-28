@@ -5,9 +5,9 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 
 import App from './App';
-import reducers from './reducers';
+import combineReducers from './combineReducers';
 import { register } from './registerServiceWorker'; //unregister also available
-import { INITIAL_AUTH_STATE } from './actions/types';
+import { INITIAL_AUTH_STATE } from './services/auth/types';
 
 //we're storing the initial auth state in sessionState (globally to this domain/tab)
 //specifically so that authentication survives a refresh but that the information
@@ -30,7 +30,7 @@ const initialState =
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
-    reducers,
+    combineReducers,
     initialState,
     composeEnhancers(applyMiddleware(reduxThunk))
 );

@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setFlag } from '../../actions';
+import { setFlag } from '../../services/flags/actions';
 
 
 class Resume extends Component {

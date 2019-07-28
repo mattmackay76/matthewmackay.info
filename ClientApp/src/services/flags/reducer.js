@@ -1,4 +1,4 @@
-﻿import { SETFLAG } from '../actions/types';
+﻿import { SETFLAG } from './types';
 
 export default (state = {}, action) => {
     switch (action.type) {

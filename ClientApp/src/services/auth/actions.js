@@ -1,6 +1,6 @@
-﻿import { INITIAL_AUTH_STATE, AUTH_LOGIN, AUTH_LOGOUT } from '../../actions/types';
-import { INVALID_LOGIN_ATTEMPT } from '../../actions/constants';
-import { setFlag } from '../../actions';
+﻿import { INITIAL_AUTH_STATE, AUTH_LOGIN, AUTH_LOGOUT } from './types';
+import { INVALID_LOGIN_ATTEMPT } from '../flags/constants';
+import { setFlag } from '../flags/actions';
 
 
 export const authLogin = (username, password) => async (dispatch, getState) => {

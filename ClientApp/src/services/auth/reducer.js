@@ -1,4 +1,4 @@
-﻿import { AUTH_LOGIN, AUTH_LOGOUT } from '../../actions/types';
+﻿import { AUTH_LOGIN, AUTH_LOGOUT } from './types';
 
 export default (state = {}, action) => {
     switch (action.type) {

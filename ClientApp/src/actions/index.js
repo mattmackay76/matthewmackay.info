@@ -1,15 +1,7 @@
-﻿import { POST_TEST, SETFLAG } from './types';
-import { EXPIRED_LOGIN_ATTEMPT } from './constants';
+﻿import { POST_TEST } from './types';
+import { EXPIRED_LOGIN_ATTEMPT } from '../services/flags/constants';
 import { authLogout } from '../services/auth/actions';
-
-
-export const setFlag = (flags) => async (dispatch, getState) => {
-    dispatch({
-        type: SETFLAG,
-        payload: flags
-    });
-};
-
+import { setFlag } from '../services/flags/actions';
 
 export const postTest = (formData, id) => async (dispatch, getState) => {
     const token = getState().auth.token;
