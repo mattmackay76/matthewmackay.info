@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { NavLink, withRouter  } from 'react-router-dom';  
 import { connect } from 'react-redux';
-import { authLogout } from '../actions';
+import { authLogout } from '../../services/auth/actions';
 
 class Nav extends Component {
 
@@ -32,7 +32,7 @@ class Nav extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isLoggedIn: state.authReducer.isLoggedIn,
+        isLoggedIn: state.auth.isLoggedIn,
     };
 };
 

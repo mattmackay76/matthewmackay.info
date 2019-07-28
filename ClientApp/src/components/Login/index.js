@@ -3,8 +3,9 @@ import { withRouter  } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import { authLogin, setFlag } from '../actions';
-import { INVALID_LOGIN_ATTEMPT, EXPIRED_LOGIN_ATTEMPT } from '../actions/constants';
+import { authLogin } from '../../services/auth/actions';
+import { setFlag } from '../../actions';
+import { INVALID_LOGIN_ATTEMPT, EXPIRED_LOGIN_ATTEMPT } from '../../actions/constants';
 
 class Login extends Component
 {
@@ -81,10 +82,10 @@ class Login extends Component
 
 const mapStateToProps = (state) => {
     return {
-    isLoggedIn: state.authReducer.isLoggedIn,
+    isLoggedIn: state.auth.isLoggedIn,
         isLoaded: state.testReducer !== null,
-        auth: state.authReducer,
-        flags: state.flagReducer
+        auth: state.auth,
+        flags: state.flags
     };
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { authLogin } from './actions';
+import { authLogin } from './services/auth/actions';
 import Layout from './components/Layout';
   
 
@@ -19,7 +19,7 @@ class App extends React.Component
 
 const mapStateToProps = (state) => {
     return {
-        isLoggedIn: state.authReducer.isLoggedIn
+        isLoggedIn: state.auth.isLoggedIn
     };
 };
 

@@ -1,17 +1,17 @@
 ﻿import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { connect } from 'react-redux';
+
+import './style.css'
 import 'react-toastify/dist/ReactToastify.min.css';
 
-import { connect } from 'react-redux';
-import { authLogin } from '../actions';
-
-import './Layout.css'
-import Nav from './Nav';
-import Login from './Login';
-import Resume from './content/Resume';
-import Skills from './content/Skills';
-import Demos from './content/Demos';
+import { authLogin } from '../../services/auth/actions';
+import Nav from '../Nav';
+import Login from '../Login';
+import Resume from '../content/Resume';
+import Skills from '../content/Skills';
+import Demos from '../content/Demos';
 
 class Layout extends Component {
 
@@ -96,8 +96,8 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isLoggedIn: state.authReducer.isLoggedIn,
-        auth: state.authReducer,
+        isLoggedIn: state.auth.isLoggedIn,
+        auth: state.auth,
     };
 };
 

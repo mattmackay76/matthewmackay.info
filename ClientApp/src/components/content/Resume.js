@@ -30,9 +30,9 @@ class Resume extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isLoggedIn: state.authReducer.isLoggedIn,
+        isLoggedIn: state.auth.isLoggedIn,
         isLoaded: state.testReducer !== null,
-        auth: state.authReducer,
+        auth: state.auth,
         test: state.testReducer,
         showModal: false
     };

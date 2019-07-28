@@ -9,14 +9,16 @@ import reducers from './reducers';
 import { register } from './registerServiceWorker'; //unregister also available
 import { INITIAL_AUTH_STATE } from './actions/types';
 
-//we're storing the initial authReducer state in sessionState (globally to this domain/tab)
+//we're storing the initial auth state in sessionState (globally to this domain/tab)
 //specifically so that authentication survives a refresh but that the information
-//is not persisted, instead only lives in the browser's memory.
+//is not persisted, instead only lives in the browser's memory. Splitting
+//the JWT token into payload/signature and storing signature in a cookie httpOnly, secure, self
+//would considerably increase security against both XSS (Cross site scripting) as well as CORS (Cross-origin resource sharing)
 var initialAuthJson = window.sessionStorage.getItem(INITIAL_AUTH_STATE);
 
 const initialState =
 {
-    authReducer: //todo: rename to just auth
+    auth: 
         initialAuthJson ? //defined?
             JSON.parse(initialAuthJson)
             :
