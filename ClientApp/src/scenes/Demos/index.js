@@ -4,8 +4,8 @@ import { withRouter } from 'react-router-dom';
 import { Segment, Sidebar } from 'semantic-ui-react'
 import { Image, List, Header, Table, Rating } from 'semantic-ui-react'
 
-import "./Demos.css";
-import { postTest } from '../../actions';
+import "./style.css";
+import { postTest } from './services/test/actions';
 
 
 function validate(someData, someOtherData) {

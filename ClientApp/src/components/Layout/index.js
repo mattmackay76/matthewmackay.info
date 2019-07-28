@@ -9,9 +9,9 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import { authLogin } from '../../services/auth/actions';
 import Nav from '../Nav';
 import Login from '../Login';
-import Resume from '../content/Resume';
-import Skills from '../content/Skills';
-import Demos from '../content/Demos';
+import Resume from '../../scenes/Resume';
+import Skills from '../../scenes/Skills';
+import Demos from '../../scenes/Demos';
 
 class Layout extends Component {
 

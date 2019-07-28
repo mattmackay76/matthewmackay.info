@@ -1,5 +1,5 @@
 ﻿import { combineReducers } from 'redux';
-import testReducer from './reducers/testReducer';
+import testReducer from './scenes/Demos/services/test/reducer';
 import authReducer from './services/auth/reducer';
 import flagsReducer from './services/flags/reducer';
 

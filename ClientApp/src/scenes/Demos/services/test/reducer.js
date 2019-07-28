@@ -1,4 +1,4 @@
-﻿import { POST_TEST } from '../actions/types';
+﻿import { POST_TEST } from './types';
 
 export default (state = null, action) => {
     switch (action.type) {
