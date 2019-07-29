@@ -1,0 +1,36 @@
+﻿#demos .employee-editor {
+    display: flex;
+    flex-direction: column;
+}
+
+#demos .employee-editor .error {
+    background-color: #fff6f6;
+    border: 1px solid red;
+}
+
+#demos .employee-editor label {
+    display: flex;
+    flex-direction: column;
+}
+
+#demos .employee-editor label span {
+    min-width: 150px;
+}
+
+#demos .employee-editor .ui.label {
+    background: #94182f;
+    color: white;
+}
+
+@media (min-width: 600px) {
+    #demos .employee-editor form {
+        display: grid;
+        grid-template-columns: [left] 4fr [right] 4fr;
+        font: 1em Helvetica, arial, sans-serif;
+    }
+
+    #demos .employee-editor label {
+        display: flex;
+        flex-direction: row;
+    }
+}
