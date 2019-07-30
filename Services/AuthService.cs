@@ -20,6 +20,7 @@ namespace MatthewMackay.Info.Services
             new User { Id = 2, Username = "guest", Password = "2fa4d02ba2b276156f37bb3677cd6c76764dc17fd2eb6dc7e91d7f1871111810", Role = "Administrator"},
             new User { Id = 3, Username = "curt", Password = "2fa4d02ba2b276156f37bb3677cd6c76764dc17fd2eb6dc7e91d7f1871111810", Role = "Administrator"},
             new User { Id = 4, Username = "chelsie", Password = "2fa4d02ba2b276156f37bb3677cd6c76764dc17fd2eb6dc7e91d7f1871111810", Role = "Administrator"},
+            new User { Id = 5, Username = "phoebe", Password = "fa769210cdebd7c0c73aabf418618deec17834e3c4ddbe122e964960be03197f", Role = "Administrator"},
         };
 
         private readonly IConfiguration _configuration;

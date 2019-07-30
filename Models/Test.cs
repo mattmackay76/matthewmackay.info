@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using matthewmackay.info.Models;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using System;
@@ -31,6 +32,8 @@ namespace MatthewMackay.Info.Models
 
         public string SomeData { get; set; }
         public string SomeOtherData { get; set; }
+
+        public List<Dependent> Dependents { get; set; }
 
     }
 }

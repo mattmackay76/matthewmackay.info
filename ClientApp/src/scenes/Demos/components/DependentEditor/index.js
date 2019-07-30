@@ -31,9 +31,8 @@ class DependentEditor extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        if (this.props.employee !== prevProps.employee) {
-            //reset touched back to falses
-            this.setState({ dependents: this.props.employee.dependents });
+        if (this.props.dependents !== prevProps.dependents) {
+            this.setState({ dependents: this.props.dependents });
         }
     }
 

@@ -21,23 +21,27 @@ class Demos extends Component {
             editEmployeeBarVisible: false,
             editEmployeeDependentsBarVisible: false,
             currentEmployee: {},
+            currentDependents: [],
             employeeList: {}
         };
         
         this.handleDependentsSave = this.handleDependentsSave.bind(this);
+        this.handleEmployeeSave = this.handleEmployeeSave.bind(this);
     }
 
     handleEmployeeSave = (employee) => {
+        //recombine the employee with edited dependents
+        employee.dependents = this.state.currentDependents;
         this.props.postTest(employee, employee.id);
         this.toggleEmployeeBar();
     };
 
     handleDependentsSave = (dependents) => {
-        this.setState(prevState => {
-            let currentEmployee = { ...prevState.currentEmployee };
-            currentEmployee.dependents = dependents;
-            return { currentEmployee };
-        });
+        this.setState(
+            {
+                currentDependents: dependents
+            });
+        this.toggleDependentBar();
     };
 
     handleAddEmployee = () => {
@@ -47,13 +51,18 @@ class Demos extends Component {
                 someData: '',
                 someOtherData: '',
                 dependents: []
-            }
+            },
+            currentDependents: []
         }); 
         this.toggleEmployeeBar();
     };
 
     handleEditEmployee = (id) => {
-        this.setState({ currentEmployee: this.props.employeeList[id] }); //blank employee
+        this.setState(
+            {
+                currentEmployee: this.props.employeeList[id],
+                currentDependents: this.props.employeeList[id].dependents,
+            }); //blank employee
         this.toggleEmployeeBar();
     };
 
@@ -96,6 +105,7 @@ class Demos extends Component {
 
                             <EmployeeEditor
                                 employee={this.state.currentEmployee}
+                                dependents={this.state.currentDependents}
                                 onSubmit={this.handleEmployeeSave}
                                 onClose={this.toggleEmployeeBar}
                                 onDependents={this.toggleDependentBar} />
@@ -112,7 +122,7 @@ class Demos extends Component {
                             className="demoDropdown">
 
                                 <DependentEditor
-                                    employee={this.state.currentEmployee}
+                                    dependents={this.state.currentDependents}
                                     onSubmit={this.handleDependentsSave}
                                     onClose={this.toggleDependentBar} />
 
