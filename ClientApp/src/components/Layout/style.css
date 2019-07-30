@@ -66,8 +66,8 @@ a {
 }
 
 .profile img {
-    width: 100%;
     max-width: 400px;
+    max-height: 500px;
 }
 
 .nav-component {
@@ -149,8 +149,8 @@ article {
     }
     
     .profile img {
-        width: 100%;
         max-width: 150px;
+        max-height: 200px;
     }
 
     .profile section .name {

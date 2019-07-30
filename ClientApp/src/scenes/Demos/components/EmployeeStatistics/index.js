@@ -1,4 +1,4 @@
-﻿import React, { Component } from 'react';
+﻿import React from 'react';
 import { Table, Header, Rating } from 'semantic-ui-react'
 
 const EmployeeStatistics = (props) => (

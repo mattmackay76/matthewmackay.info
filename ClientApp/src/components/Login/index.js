@@ -49,6 +49,11 @@ class Login extends Component
             this.props.history.push('/');
             return false; //no need to update/re-render this component in this case
         }
+        if (nextProps.auth.isLoggedIn && !this.props.auth.isLoggedIn) {
+            toast.success("Moving to the Demos tab");
+            this.props.history.push('/demos');
+            return false; //no need to update/re-render this component in this case
+        }
         
         return true;
     }

@@ -7,6 +7,7 @@ import { Image, List } from 'semantic-ui-react'
 import "./style.css";
 import { getTests, postTest } from './services/test/actions';
 import EmployeeEditor from './components/EmployeeEditor';
+import DependentEditor from './components/DependentEditor';
 import EmployeeStatistics from './components/EmployeeStatistics';
 
 class Demos extends Component {
@@ -22,6 +23,8 @@ class Demos extends Component {
             currentEmployee: {},
             employeeList: {}
         };
+        
+        this.handleDependentsSave = this.handleDependentsSave.bind(this);
     }
 
     handleEmployeeSave = (employee) => {
@@ -29,8 +32,23 @@ class Demos extends Component {
         this.toggleEmployeeBar();
     };
 
+    handleDependentsSave = (dependents) => {
+        this.setState(prevState => {
+            let currentEmployee = { ...prevState.currentEmployee };
+            currentEmployee.dependents = dependents;
+            return { currentEmployee };
+        });
+    };
+
     handleAddEmployee = () => {
-        this.setState({ currentEmployee: { someData: '', someOtherData: ''} }); //TODO: probably need to fill in fields or else validation will complain
+        this.setState({ //TODO: build a new employee function that sets everything to empty
+            currentEmployee:
+            {
+                someData: '',
+                someOtherData: '',
+                dependents: []
+            }
+        }); 
         this.toggleEmployeeBar();
     };
 
@@ -79,7 +97,8 @@ class Demos extends Component {
                             <EmployeeEditor
                                 employee={this.state.currentEmployee}
                                 onSubmit={this.handleEmployeeSave}
-                                onClose={this.toggleEmployeeBar} />
+                                onClose={this.toggleEmployeeBar}
+                                onDependents={this.toggleDependentBar} />
 
                         </Sidebar>
 
@@ -92,21 +111,10 @@ class Demos extends Component {
                             style={{ backgroundColor: 'white' }}
                             className="demoDropdown">
 
-                                <ul>
-                                    <li>1</li>
-                                    <li>2</li>
-                                    <li>3</li>
-                                    <li>4</li>
-                                    <li>5</li>
-                                </ul>
-                                <ul>
-                                    <li>1</li>
-                                    <li>2</li>
-                                    <li>3</li>
-                                    <li>4</li>
-                                    <li>5</li>
-                                </ul>
-                                <button onClick={this.toggleDependentBar} className="ui button primary">close</button>
+                                <DependentEditor
+                                    employee={this.state.currentEmployee}
+                                    onSubmit={this.handleDependentsSave}
+                                    onClose={this.toggleDependentBar} />
 
                         </Sidebar>
                     <div>
@@ -159,10 +167,10 @@ const mapStateToProps = (state) => {
 };
 
 const convertToObject = (tests) => {
-    let result = tests.reduce((map, obj) => (map[obj.id] = obj, map), {});
+    //comma operator (x,y) evaluates x and then returns y 
+    let result = tests.reduce( (acc, cur) => (acc[cur.id] = cur, acc), {});
     return result;
 };
-
 
 //withRouter so that we have access to this.pops.history
 export default withRouter(connect(mapStateToProps, { getTests, postTest })(Demos)); 

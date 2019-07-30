@@ -81,9 +81,7 @@ class EmployeeEditor extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.employee !== prevProps.employee) {
-            //reset touched back to falses
-            this.setState({ formData: this.props.employee, touched: this.unTouched() }); 
-            
+            this.setState({ formData: this.props.employee, touched: this.unTouched() }); //reset touched back to falses
         }
     }
 
@@ -124,7 +122,8 @@ class EmployeeEditor extends Component {
                     <input disabled={isDisabled} type="submit" value="Save" className="ui primary button" />
                     
                 </form>
-                <button onClick={this.props.onClose} className="ui button primary" style={{width: '100%'}}>close</button>
+                <button onClick={this.props.onDependents} className="ui button primary" style={{ width: '100%' }}>Dependents</button>
+                <button onClick={this.props.onClose} className="ui button primary" style={{ width: '100%' }}>Close</button>
             </React.Fragment>
             
         );
