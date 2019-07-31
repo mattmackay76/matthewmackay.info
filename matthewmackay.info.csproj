@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\scenes\Demos\services\employee\" />
     <Folder Include="ClientApp\src\services\api\" />
   </ItemGroup>
 

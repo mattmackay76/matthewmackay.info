@@ -28,4 +28,5 @@ const mapStateToProps = (state) => {
     };
 };
 
+//TODO: Does this really need to be wired to the store?
 export default connect(mapStateToProps, {})(Skills);

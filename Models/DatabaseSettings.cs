@@ -7,14 +7,14 @@ namespace MatthewMackay.Info.Models
 {
     public interface IDatabaseSettings
     {
-        string TestCollectionName { get; set; }
+        string EmployeeCollectionName { get; set; }
         string ConnectionString { get; set; }
         string DatabaseName { get; set; }
     }
 
     public class DatabaseSettings : IDatabaseSettings
     {
-        public string TestCollectionName { get; set; }
+        public string EmployeeCollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
     }

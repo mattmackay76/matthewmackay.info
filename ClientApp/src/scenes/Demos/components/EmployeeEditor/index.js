@@ -2,17 +2,56 @@
 
 import "./style.css";
 
-function validate(someData, someOtherData) {
+function validate(formData) {
     let validation = {
         errors: {
-            someData: someData.length === 0,
-            someOtherData: someOtherData.length === 0,
+            name: false,
+            annualPayPeriods: false,
+            salaryPerPeriod: false,
+            annualBenefitExpense: false,
+            annualDependentBenefitExpense: false,
         },
         messages: {
-            someData: someData.length === 0 ? ['Please, a value is required'] : [],
-            someOtherData: someOtherData.length === 0 ? ['Please, a value is required', 'and also another'] : [],
+            name: [],
+            annualPayPeriods: [],
+            salaryPerPeriod: [],
+            annualBenefitExpense: [],
+            annualDependentBenefitExpense: [],
         }
     };
+
+    //TODO: Clean this up with RegEx, too verbose
+    if (formData.name.length === 0) {
+        validation.errors.name = true;
+        validation.messages.name = validation.messages.name
+            .concat('Name is required.')
+    }
+    if (formData.annualPayPeriods > 52) { //I invented this rule just for demo
+        validation.errors.annualPayPeriods = true;
+        validation.messages.annualPayPeriods = validation.messages.annualPayPeriods
+            .concat('Annual pay periods not to exceed 52.');
+    }
+    if (formData.annualPayPeriods < 0) { 
+        validation.errors.annualPayPeriods = true;
+        validation.messages.annualPayPeriods = validation.messages.annualPayPeriods
+            .concat('Annual pay periods cannot be negative.');
+    }
+    if (formData.salaryPerPeriod < 0) { 
+        validation.errors.salaryPerPeriod = true;
+        validation.messages.salaryPerPeriod = validation.messages.salaryPerPeriod
+            .concat('Salary per period cannot be negative.');
+    }
+    if (formData.annualBenefitExpense < 0) {
+        validation.errors.annualBenefitExpense= true;
+        validation.messages.annualBenefitExpense = validation.messages.annualBenefitExpense
+            .concat('Annual benefit expense cannot be negative.');
+    }
+    if (formData.annualDependentBenefitExpense < 0) {
+        validation.errors.annualDependentBenefitExpense = true;
+        validation.messages.annualDependentBenefitExpense = validation.messages.annualDependentBenefitExpense
+            .concat('Annual dependent benefit expense cannot be negative.');
+    }
+
     return validation;
 }
 
@@ -24,10 +63,7 @@ class EmployeeEditor extends Component {
         //NOTE: If you do not initialize these form elements you'll get a warning
         //because the component doesn't have an initial value, react will think it's uncontrollered
         this.state = {
-            formData: {
-                someData: '',
-                someOtherData: '',
-            },
+            formData: this.newForm(), 
             touched: this.unTouched(),
             dependents: []
         };
@@ -35,10 +71,21 @@ class EmployeeEditor extends Component {
 
     unTouched = () => {
         return {
-            someData: false,
-            someOtherData: false
+            name: false,
+            annualPayPeriods: false,
+            salaryPerPeriod: false,
+            annualBenefitExpense: false,
+            annualDependentBenefitExpense: false,
         }
     };
+
+    newForm = () => ({
+        name: '',
+        annualPayPeriods: 26,
+        salaryPerPeriod: 2000,
+        annualBenefitExpense: 1000,
+        annualDependentBenefitExpense: 500,
+    });
 
     handleChange = (event) => {
         //straight out'a reactjs.org
@@ -75,15 +122,18 @@ class EmployeeEditor extends Component {
     };
 
     canBeSubmitted() {
-        const validation = validate(this.state.formData.someData, this.state.formData.someOtherData);
+        const validation = validate(this.state.formData);
         const isDisabled = Object.keys(validation.errors).some(x => validation.errors[x]);
         return !isDisabled;
     }
 
     componentDidUpdate(prevProps) {
-        
         if (this.props.employee !== prevProps.employee) {
-            this.setState({ formData: this.props.employee, touched: this.unTouched() }); //reset touched back to falses
+            this.setState(
+                {
+                    formData: this.props.employee,
+                    touched: this.unTouched(), //reset touched back to falses
+                }); 
         }
         if (this.props.dependents !== prevProps.dependents) {
             this.setState({
@@ -93,7 +143,7 @@ class EmployeeEditor extends Component {
     }
 
     render() {
-        const { errors, messages } = validate(this.state.formData.someData, this.state.formData.someOtherData);
+        const { errors, messages } = validate(this.state.formData);
         const isDisabled = Object.keys(errors).some(x => errors[x]);  //errors is a Bool[]
         const shouldMarkError = field => {
             const hasError = errors[field];
@@ -102,9 +152,10 @@ class EmployeeEditor extends Component {
         };
 
         let inputJsx = (label, name, id) => (
-            <label key={id}>
+            <label key={id} htmlFor={name}>
                 <span>{label}: </span>
                 <input
+                    id={name}
                     name={name} placeholder=""
                     value={this.state.formData[name]}
                     className={shouldMarkError(name) ? 'error' : ''}
@@ -122,22 +173,46 @@ class EmployeeEditor extends Component {
         return (
             <React.Fragment>
                 <form onSubmit={this.handleSubmit} className="employee-editor">
-                    {inputJsx("someDataLabel", "someData", 1)}
-                    <div className="ui divider" />
-                    {inputJsx("someOtherDataLabel", "someOtherData", 2)}
-                    <div className="ui divider" />
-                    <input disabled={isDisabled} type="submit" value="Save" className="ui primary button" />
-                    
+                    <div className="formWrapper" >
+                        <section>
+                            {/*Clean up this key/1,2,3 etc */}
+                            {inputJsx("Name", "name", 1)}
+                            {inputJsx("Salary per period", "salaryPerPeriod", 3)}
+                        </section>
+
+                        <section>
+                            {inputJsx("Annual pay periods", "annualPayPeriods", 2)}
+                            {inputJsx("Annual benefit expense", "annualBenefitExpense", 4)}
+                            {inputJsx("Annual dependent expense", "annualDependentBenefitExpense", 5)}
+                        </section>
+
+                        <section>
+                            <div>
+                                Dependents <button onClick={this.props.onDependents} className="ui button primary mini" style={
+                                    {
+                                        float: 'right',
+                                        position: 'relative',
+                                        display: 'table',
+                                        padding: '10px',
+                                    }}>
+                                    <i className="ui icon plus square outline" style={{ display: 'table-cell' }} />
+                                </button>
+                            </div>
+
+                            <ul>
+                                {this.state.dependents.map((d, i) => (
+                                    <li key={i}>{d.name}</li>
+                                ))}
+                            </ul>
+                        </section>
+                    </div>
+                    <input disabled={isDisabled} type="submit" value="Save" className="ui primary button mini" />
+                    <button onClick={this.props.onClose} className="ui button primary mini" >Cancel</button>
+                    <button disabled={isDisabled} className="ui negative button mini" style={{ float: 'right' }}>Delete</button>
                 </form>
-                <div>
-                    <ul>
-                        {this.state.dependents.map((d, i) => (
-                            <li key={i}>{d.name}</li>
-                        ))}
-                    </ul>
-                </div>
-                <button onClick={this.props.onDependents} className="ui button primary" style={{ width: '100%' }}>Dependents</button>
-                <button onClick={this.props.onClose} className="ui button primary" style={{ width: '100%' }}>Close</button>
+                
+                
+                
             </React.Fragment>
             
         );

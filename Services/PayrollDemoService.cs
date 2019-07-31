@@ -1,4 +1,5 @@
-﻿using MatthewMackay.Info.Models;
+﻿using matthewmackay.info.Models;
+using MatthewMackay.Info.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -6,34 +7,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MatthewMackay.Info.Services
+namespace matthewmackay.info.Services
 {
-    public class TestService
+    public class PayrollDemoService
     {
-        private readonly IMongoCollection<Test> _testCollection;
-        public TestService(IDatabaseSettings dbSettings)
+        private readonly IMongoCollection<Employee> _employeeCollection;
+
+        public PayrollDemoService(IDatabaseSettings dbSettings)
         {
             var client = new MongoClient(dbSettings.ConnectionString);
             var database = client.GetDatabase(dbSettings.DatabaseName);
-            _testCollection = database.GetCollection<Test>(dbSettings.EmployeeCollectionName);
+            _employeeCollection = database.GetCollection<Employee>(dbSettings.EmployeeCollectionName);
         }
 
-        public async Task<List<Test>> GetAll(int userId) => 
-            (await _testCollection.FindAsync(t => t.UserId == userId)).ToList();
+        public async Task<List<Employee>> GetAll(int userId) =>
+            (await _employeeCollection.FindAsync(t => t.UserId == userId)).ToList();
 
-        public async Task<Test> Get(int userId, ObjectId Id) =>
-             await _testCollection.Find(t => t.Id == Id && t.UserId == userId)
+        public async Task<Employee> Get(int userId, ObjectId Id) =>
+             await _employeeCollection.Find(t => t.Id == Id && t.UserId == userId)
                 .FirstOrDefaultAsync();
-            
 
-
-        public async Task<Test> Upsert(int userId, Test item)
+        public async Task<Employee> Upsert(int userId, Employee item)
         {
             try
             {
                 item.UserId = userId;
                 ReplaceOneResult actionResult
-                    = await _testCollection
+                    = await _employeeCollection
                                     .ReplaceOneAsync(n => n.Id.Equals(item.Id)
                                             , item
                                             , new UpdateOptions { IsUpsert = true });
@@ -51,8 +51,7 @@ namespace MatthewMackay.Info.Services
             }
         }
 
-
-        public void Insert(Test test) => _testCollection.InsertOne(test);
+        public void Insert(Employee employee) => _employeeCollection.InsertOne(employee);
 
     }
 }

@@ -1,4 +1,5 @@
 using matthewmackay.info.Attributes;
+using matthewmackay.info.Services;
 using MatthewMackay.Info.Models;
 using MatthewMackay.Info.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -31,6 +32,7 @@ namespace MatthewMackay.Info
             services.Configure<DatabaseSettings>(Configuration.GetSection(nameof(DatabaseSettings)));
             services.AddSingleton<IDatabaseSettings>(sp => sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
             services.AddSingleton<TestService>();
+            services.AddSingleton<PayrollDemoService>();
             services.AddTransient<AuthService>();
 
             services

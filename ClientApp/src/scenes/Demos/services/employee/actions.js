@@ -1,9 +1,23 @@
-﻿import { GET_TESTS, POST_TEST } from './types';
+﻿import { POST_EMPLOYEE, GET_EMPLOYEES } from './types';
 import { EXPIRED_LOGIN_ATTEMPT } from '../../../../services/flags/constants';
 import { authLogout } from '../../../../services/auth/actions';
 import { setFlag } from '../../../../services/flags/actions';
 
-export const postTest = (formData, id) => async (dispatch, getState) => {
+
+//TODO: clean this up
+/* Example of server returned validation error postEmployee
+ {
+   "errors":{
+      "salaryPerPeriod":[
+         "Could not convert string to decimal: 2000assfa222. Path 'salaryPerPeriod', line 1, position 121."
+      ]
+   },
+   "title":"One or more validation errors occurred.",
+   "status":400,
+   "traceId":"0HLOLDPT20BBG:00000007"
+}
+ * */
+export const postEmployee = (formData, id) => async (dispatch, getState) => {
     const token = getState().auth.token;
     let body = { ...formData };
 
@@ -22,13 +36,13 @@ export const postTest = (formData, id) => async (dispatch, getState) => {
 
     let res = null; //response
     try {
-        res = await fetch('/api/SampleData/Test', params);
+        res = await fetch('/api/PayrollDemo/Employee', params);
         const json = await res.json();
         dispatch({
-            type: POST_TEST,
+            type: POST_EMPLOYEE,
             payload: json
         });
-        dispatch(getTests());
+        dispatch(getEmployees()); //hack? TODO: move this?
     } catch (e) {
         if (res.status === 401) {
             dispatch(setFlag({
@@ -40,7 +54,7 @@ export const postTest = (formData, id) => async (dispatch, getState) => {
     }
 };
 
-export const getTests = () => async (dispatch, getState) => {
+export const getEmployees = () => async (dispatch, getState) => {
     const token = getState().auth.token;
     const params = {
         method: 'GET',
@@ -53,10 +67,10 @@ export const getTests = () => async (dispatch, getState) => {
 
     let res = null; //response
     try {
-        res = await fetch('/api/SampleData/Tests', params);
+        res = await fetch('/api/PayrollDemo/Employees', params);
         const json = await res.json();
         dispatch({
-            type: GET_TESTS,
+            type: GET_EMPLOYEES,
             payload: json
         });
     } catch (e) {
@@ -68,4 +82,3 @@ export const getTests = () => async (dispatch, getState) => {
         }
     }
 };
-

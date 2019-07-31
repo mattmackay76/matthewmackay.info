@@ -10,6 +10,8 @@ class DependentEditor extends Component {
         this.state = {
             dependents: []
         };
+
+        //handleSubmit is called by a control and despite being an => "this" is wrong
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -30,6 +32,9 @@ class DependentEditor extends Component {
 
     };
 
+    //This is allegedly the patter for children to be aware of changing props
+    //and take a copy to local state so that we don't modify the parent. Gets called
+    //if the parent changes a property for example
     componentDidUpdate(prevProps) {
         if (this.props.dependents !== prevProps.dependents) {
             this.setState({ dependents: this.props.dependents });
@@ -46,7 +51,6 @@ class DependentEditor extends Component {
                 </form>
                 <button onClick={this.props.onClose} className="ui button primary" style={{ width: '100%' }}>close</button>
             </React.Fragment>
-
         );
     }
 }

@@ -4,11 +4,12 @@ import { withRouter } from 'react-router-dom';
 import { Segment, Sidebar } from 'semantic-ui-react'
 import { Image, List } from 'semantic-ui-react'
 
-import "./style.css";
-import { getTests, postTest } from './services/test/actions';
+import { getEmployees, postEmployee } from './services/employee/actions';
 import EmployeeEditor from './components/EmployeeEditor';
 import DependentEditor from './components/DependentEditor';
 import EmployeeStatistics from './components/EmployeeStatistics';
+
+import "./style.css";
 
 class Demos extends Component {
 
@@ -22,17 +23,26 @@ class Demos extends Component {
             editEmployeeDependentsBarVisible: false,
             currentEmployee: {},
             currentDependents: [],
-            employeeList: {}
         };
-        
+
+        //since these are called by children and we need the correct *this*
         this.handleDependentsSave = this.handleDependentsSave.bind(this);
         this.handleEmployeeSave = this.handleEmployeeSave.bind(this);
     }
 
+    emptyEmployee = () => ({
+        name: '',
+        annualPayPeriods: 26,
+        salaryPerPeriod: 2000,
+        annualBenefitExpense: 1000,
+        annualDependentBenefitExpense: 500,
+        dependents: []
+    });
+
     handleEmployeeSave = (employee) => {
         //recombine the employee with edited dependents
         employee.dependents = this.state.currentDependents;
-        this.props.postTest(employee, employee.id);
+        this.props.postEmployee(employee, employee.id);
         this.toggleEmployeeBar();
     };
 
@@ -45,13 +55,8 @@ class Demos extends Component {
     };
 
     handleAddEmployee = () => {
-        this.setState({ //TODO: build a new employee function that sets everything to empty
-            currentEmployee:
-            {
-                someData: '',
-                someOtherData: '',
-                dependents: []
-            },
+        this.setState({ 
+            currentEmployee: this.emptyEmployee(),
             currentDependents: []
         }); 
         this.toggleEmployeeBar();
@@ -62,7 +67,7 @@ class Demos extends Component {
             {
                 currentEmployee: this.props.employeeList[id],
                 currentDependents: this.props.employeeList[id].dependents,
-            }); //blank employee
+            }); 
         this.toggleEmployeeBar();
     };
 
@@ -80,7 +85,7 @@ class Demos extends Component {
     componentDidMount() {
         //only call if we're logged in since on logout, this control sometimes gets one last render
         if (this.props.isLoggedIn) 
-            this.props.getTests();
+            this.props.getEmployees();
     }
 
     render() {
@@ -128,7 +133,7 @@ class Demos extends Component {
 
                         </Sidebar>
                     <div>
-                            <h4 style={{ display: 'inline-block' }}>Select or add a new employee</h4>
+                            <h4>Select or add a new employee</h4>
                             <button onClick={this.handleAddEmployee} className="ui button primary" style={
                                 {
                                     float: 'right',
@@ -169,18 +174,16 @@ class Demos extends Component {
 const mapStateToProps = (state) => {
     return {
         isLoggedIn: state.auth.isLoggedIn,
-        isLoaded: state.testReducer !== null,
         auth: state.auth,
         test: state.testReducer,
-        employeeList: state.testReducer ? convertToObject(state.testReducer.tests) || {} : {} 
+        employee: state.employeeReducer.employee,
+        employeeList: state.employeeReducer.employeeList ? convertToObject(state.employeeReducer.employeeList) || {} : {} 
     };
 };
 
-const convertToObject = (tests) => {
-    //comma operator (x,y) evaluates x and then returns y 
-    let result = tests.reduce( (acc, cur) => (acc[cur.id] = cur, acc), {});
-    return result;
-};
+//comma operator (x,y) evaluates x and then returns y, reduce converts from array to hash/object by id 
+const convertToObject = (employees) =>
+    employees.reduce((acc, cur) => (acc[cur.id] = cur, acc), {});
 
 //withRouter so that we have access to this.pops.history
-export default withRouter(connect(mapStateToProps, { getTests, postTest })(Demos)); 
+export default withRouter(connect(mapStateToProps, { getEmployees, postEmployee })(Demos)); 
