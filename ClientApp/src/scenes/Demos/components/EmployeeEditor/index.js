@@ -172,7 +172,7 @@ class EmployeeEditor extends Component {
      
         return (
             <React.Fragment>
-                <form onSubmit={this.handleSubmit} className="employee-editor">
+                <form onSubmit={(e) => e.preventDefault()} className="employee-editor">
                     <div className="formWrapper" >
                         <section>
                             {/*Clean up this key/1,2,3 etc */}
@@ -206,10 +206,11 @@ class EmployeeEditor extends Component {
                             </ul>
                         </section>
                     </div>
-                    <input disabled={isDisabled} type="submit" value="Save" className="ui primary button mini" />
-                    <button onClick={this.props.onClose} className="ui button primary mini" >Cancel</button>
-                    <button disabled={isDisabled} className="ui negative button mini" style={{ float: 'right' }}>Delete</button>
                 </form>
+                
+                <button disabled={isDisabled} onClick={this.handleSubmit} className="ui button primary mini" >Save</button>
+                <button onClick={this.props.onClose} className="ui button primary mini" >Cancel</button>
+                <button className="ui negative button mini" style={{ float: 'right' }}>Delete</button>
                 
                 
                 

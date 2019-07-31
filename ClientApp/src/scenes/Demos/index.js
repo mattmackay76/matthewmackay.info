@@ -28,6 +28,8 @@ class Demos extends Component {
         //since these are called by children and we need the correct *this*
         this.handleDependentsSave = this.handleDependentsSave.bind(this);
         this.handleEmployeeSave = this.handleEmployeeSave.bind(this);
+        this.toggleEmployeeBar = this.toggleEmployeeBar.bind(this);
+        this.toggleDependentBar = this.toggleDependentBar.bind();
     }
 
     emptyEmployee = () => ({
