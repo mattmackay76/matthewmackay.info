@@ -138,7 +138,7 @@ class DependentEditor extends Component {
                 <button disabled={isDisabled} onClick={this.handleSubmit} className="ui button primary mini" >{isNew ? 'Add' : 'Save'}</button>
                 <button onClick={this.props.onClose} className="ui button primary mini">Cancel</button>
                 {isNew ? null : (
-                    <button className="ui negative button mini" style={{ float: 'right' }}>Delete</button>
+                    <button className="ui negative button mini disabled" style={{ float: 'right' }}>Delete</button>
                 )}
             </React.Fragment>
         );

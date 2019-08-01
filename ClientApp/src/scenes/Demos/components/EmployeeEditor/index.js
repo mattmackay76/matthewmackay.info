@@ -210,12 +210,13 @@ class EmployeeEditor extends Component {
                             <List selection divided verticalAlign='middle' style={{ overflow: 'auto', maxHeight: '200px', marginTop: '20px' }} >
                                 {Object.keys(this.state.dependents).map((id, idx) => (
                                     <List.Item key={id}>
-                                        <Image avatar />
+                                        <Image avatar src={`https://robohash.org/${idx}.png?size=25x25`} />
                                         <List.Content>
-                                        <List.Header>{this.state.dependents[id].name}</List.Header>
+                                            <List.Header>
+                                                {this.state.dependents[id].name} - {this.state.dependents[id].dependentType}
+                                            </List.Header>
                                             <List.Description>
-                                                <List.Header>Annual Pay Periods: </List.Header>
-                                                <List.Header>Expense: </List.Header>
+                                                <List.Header></List.Header>
                                             </List.Description>
                                         </List.Content>
                                         <List.Content floated='right'>
@@ -230,7 +231,7 @@ class EmployeeEditor extends Component {
                 
                 <button disabled={isDisabled} onClick={this.handleSubmit} className="ui button primary mini" >Save</button>
                 <button onClick={this.props.onClose} className="ui button primary mini" >Cancel</button>
-                <button className="ui negative button mini" style={{ float: 'right' }}>Delete</button>
+                <button className="ui negative button mini disabled" style={{ float: 'right' }}>Delete</button>
                 
                 
                 

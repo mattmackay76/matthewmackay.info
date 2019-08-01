@@ -202,7 +202,7 @@ class Demos extends Component {
                     <List selection divided verticalAlign='middle' style={{overflow: 'auto', maxHeight: '350px', marginTop: '20px'}} >
                         {Object.keys(this.props.employeeList).map((id, idx) => (
                             <List.Item key={id}>
-                                <Image avatar src={`https://robohash.org/${id}.png?size=50x50`} />
+                                <Image avatar src={`https://robohash.org/${idx}.png?size=50x50`} />
                                 <List.Content>
                                     <List.Header>{this.props.employeeList[id].name}</List.Header>
                                     <List.Description>
