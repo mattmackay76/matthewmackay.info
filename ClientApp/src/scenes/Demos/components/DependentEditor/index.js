@@ -124,7 +124,7 @@ class DependentEditor extends Component {
             <React.Fragment>
                 <form onSubmit={this.handleSubmit} className="dependent-editor">
                     <div className="formWrapper" >
-                        <h4 style={{ display: 'inline' }}>Add or Update a new dependent</h4>
+                        <h4>Add or Update a new dependent</h4>
                         <section>
                             {inputJsx("Name", "name", "dep-1")}
                             <select id="dependentType" name="dependentType" value={this.state.formData.dependentType} onChange={this.handleChange}>

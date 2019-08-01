@@ -204,9 +204,20 @@ class Demos extends Component {
                             <List.Item key={id}>
                                 <Image avatar src={`https://robohash.org/${idx}.png?size=50x50`} />
                                 <List.Content>
-                                    <List.Header>{this.props.employeeList[id].name}</List.Header>
+                                    <List.Header>
+                                        <span style={{fontWeight:'bold', fontSize:'1.5em'}}>
+                                            {this.props.employeeList[id].name}
+                                        </span> - ({this.props.employeeList[id].dependents.map(d => d.name).join()})
+                                    </List.Header>
                                     <List.Description>
-                                        <List.Header>Annual Pay Periods: {this.props.employeeList[id].annualPayPeriods}</List.Header>
+                                        <List.Header>
+                                            <span>
+                                                Annual Pay Periods: {this.props.employeeList[id].annualPayPeriods}
+                                            </span>
+                                            <span>
+                                                Annual Benefit Expense: {this.props.employeeList[id].annualBenefitExpense}
+                                            </span>
+                                        </List.Header>
                                         <List.Header>Expense: {this.props.employeeList[id].annualBenefitExpense}</List.Header>
                                     </List.Description>
                                 </List.Content>
