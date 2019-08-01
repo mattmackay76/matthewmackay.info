@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import { Image, List } from 'semantic-ui-react'
 
 import "./style.css";
 
@@ -65,7 +66,7 @@ class EmployeeEditor extends Component {
         this.state = {
             formData: this.newForm(), 
             touched: this.unTouched(),
-            dependents: []
+            dependents: {}
         };
     }
 
@@ -78,7 +79,7 @@ class EmployeeEditor extends Component {
             annualDependentBenefitExpense: false,
         }
     };
-
+    //TODO: Put these defaults into configuration
     newForm = () => ({
         name: '',
         annualPayPeriods: 26,
@@ -188,22 +189,41 @@ class EmployeeEditor extends Component {
 
                         <section>
                             <div>
-                                Dependents <button onClick={this.props.onDependents} className="ui button primary mini" style={
+                                <button onClick={this.props.onAddDependents} className="ui button primary mini" style={
+                                   {
+                                        float: 'right',
+                                        position: 'relative',
+                                        display: 'table',
+                                        padding: '10px',
+                                   }}>
+                                    <i className="ui icon plus square outline" style={{ display: 'table-cell' }} />
+                                </button>
+                                <span style={
                                     {
                                         float: 'right',
                                         position: 'relative',
                                         display: 'table',
                                         padding: '10px',
-                                    }}>
-                                    <i className="ui icon plus square outline" style={{ display: 'table-cell' }} />
-                                </button>
+                                        textAlign: 'left',
+                                    }}>Dependents</span>
                             </div>
-
-                            <ul>
-                                {this.state.dependents.map((d, i) => (
-                                    <li key={i}>{d.name}</li>
+                            <List selection divided verticalAlign='middle' style={{ overflow: 'auto', maxHeight: '200px', marginTop: '20px' }} >
+                                {Object.keys(this.state.dependents).map((id, idx) => (
+                                    <List.Item key={id}>
+                                        <Image avatar />
+                                        <List.Content>
+                                        <List.Header>{this.state.dependents[id].name}</List.Header>
+                                            <List.Description>
+                                                <List.Header>Annual Pay Periods: </List.Header>
+                                                <List.Header>Expense: </List.Header>
+                                            </List.Description>
+                                        </List.Content>
+                                        <List.Content floated='right'>
+                                            <i onClick={() => this.props.onEditDependent(this.state.dependents[id])} className="icon pencil alternate" />
+                                        </List.Content>
+                                    </List.Item>
                                 ))}
-                            </ul>
+                            </List>
                         </section>
                     </div>
                 </form>

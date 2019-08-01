@@ -5,13 +5,13 @@ matthewmackay.info .net core mvc with react + redux
 Be sure to setup appsettings.Development.json for local debugging. Ex:
 {
   "Jwt": {
-    "SigningSecret": "fasdf33343/eD00eybUGQsy/oyg63FOld/asfd==",
+	"SigningSecret": "fasdf33343/eD00eybUGQsy/oyg63FOld/asfd==",
     "ExpiryDuration": 10 // minutess
   },
-  "DatabaseSettings": {
-    "TestCollectionName": "test",
+  "DatabaseSettings": { 
     "ConnectionString": "mongodb://CONNECTION_STRING_HERE",
-    "DatabaseName": "admin"
+    "DatabaseName": "employee",
+    "EmployeeCollectionName": "employee"
   },
   "Logging": {
     "LogLevel": {

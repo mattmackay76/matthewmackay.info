@@ -22,15 +22,22 @@ class Demos extends Component {
             editEmployeeBarVisible: false,
             editEmployeeDependentsBarVisible: false,
             currentEmployee: {},
-            currentDependents: [],
+            currentDependents: {},
+            currentDependent: {},
         };
 
         //since these are called by children and we need the correct *this*
         this.handleDependentsSave = this.handleDependentsSave.bind(this);
+        this.handleEditDependents = this.handleEditDependents.bind(this);
         this.handleEmployeeSave = this.handleEmployeeSave.bind(this);
         this.toggleEmployeeBar = this.toggleEmployeeBar.bind(this);
         this.toggleDependentBar = this.toggleDependentBar.bind();
     }
+
+    emptyDependent = (id) => ({
+        id: id,
+        name: ''
+    });
 
     emptyEmployee = () => ({
         name: '',
@@ -43,7 +50,13 @@ class Demos extends Component {
 
     handleEmployeeSave = (employee) => {
         //recombine the employee with edited dependents
-        employee.dependents = this.state.currentDependents;
+        employee.dependents = Object.keys(this.state.currentDependents)
+            .map((id) => {
+                let dep = this.state.currentDependents[id];
+                if (id.substring(0, 2) === "0.")
+                    dep.id = undefined;
+                return dep;
+            });
         this.props.postEmployee(employee, employee.id);
         this.toggleEmployeeBar();
     };
@@ -51,15 +64,34 @@ class Demos extends Component {
     handleDependentsSave = (dependents) => {
         this.setState(
             {
-                currentDependents: dependents
+                currentDependents: dependents,
             });
         this.toggleDependentBar();
     };
 
+    handleAddDependents = () => {
+        
+        this.setState({
+            currentDependent: this.emptyDependent(Math.random().toString()),
+        });
+        this.toggleDependentBar();
+    };
+
+    handleEditDependents = (dependent) => {
+        let currentDependents = { ...this.state.currentDependents, [dependent.id]: dependent };
+
+        this.setState({
+            currentDependent: dependent,
+            currentDependents
+        });
+        this.toggleDependentBar();
+    }
+
     handleAddEmployee = () => {
-        this.setState({ 
+        this.setState({
             currentEmployee: this.emptyEmployee(),
-            currentDependents: []
+            currentDependents: {},
+            currentDependent: this.emptyDependent(),
         }); 
         this.toggleEmployeeBar();
     };
@@ -68,7 +100,7 @@ class Demos extends Component {
         this.setState(
             {
                 currentEmployee: this.props.employeeList[id],
-                currentDependents: this.props.employeeList[id].dependents,
+                currentDependents: convertToObjectMap(this.props.employeeList[id].dependents),
             }); 
         this.toggleEmployeeBar();
     };
@@ -104,10 +136,8 @@ class Demos extends Component {
                         <Sidebar
                             animation='push'
                             icon='labeled'
-                            onHide={this.handleSidebarHide}
                             direction='top'
                             visible={this.state.editEmployeeBarVisible}
-                            style={{ backgroundColor: 'white' }}
                             className="demoDropdown">
 
                             <EmployeeEditor
@@ -115,21 +145,21 @@ class Demos extends Component {
                                 dependents={this.state.currentDependents}
                                 onSubmit={this.handleEmployeeSave}
                                 onClose={this.toggleEmployeeBar}
-                                onDependents={this.toggleDependentBar} />
+                                onAddDependents={this.handleAddDependents} 
+                                onEditDependent={this.handleEditDependents} />
 
                         </Sidebar>
 
                         <Sidebar
                             animation='push'
                             icon='labeled'
-                            onHide={this.handleSidebarHide}
                             direction='top'
                             visible={this.state.editEmployeeDependentsBarVisible}
-                            style={{ backgroundColor: 'white' }}
                             className="demoDropdown">
 
                                 <DependentEditor
                                     dependents={this.state.currentDependents}
+                                    dependent={this.state.currentDependent}
                                     onSubmit={this.handleDependentsSave}
                                     onClose={this.toggleDependentBar} />
 
@@ -152,10 +182,10 @@ class Demos extends Component {
                             <List.Item key={id}>
                                 <Image avatar src={`https://robohash.org/${id}.png?size=50x50`} />
                                 <List.Content>
-                                    <List.Header>{this.props.employeeList[id].id}</List.Header>
+                                    <List.Header>{this.props.employeeList[id].name}</List.Header>
                                     <List.Description>
-                                        <List.Header>{this.props.employeeList[id].someData}</List.Header>
-                                        <List.Header>{this.props.employeeList[id].someOtherData}</List.Header>
+                                        <List.Header>Annual Pay Periods: {this.props.employeeList[id].annualPayPeriods}</List.Header>
+                                        <List.Header>Expense: {this.props.employeeList[id].annualBenefitExpense}</List.Header>
                                     </List.Description>
                                 </List.Content>
                                 <List.Content floated='right'>
@@ -179,13 +209,13 @@ const mapStateToProps = (state) => {
         auth: state.auth,
         test: state.testReducer,
         employee: state.employeeReducer.employee,
-        employeeList: state.employeeReducer.employeeList ? convertToObject(state.employeeReducer.employeeList) || {} : {} 
+        employeeList: state.employeeReducer.employeeList ? convertToObjectMap(state.employeeReducer.employeeList) || {} : {} 
     };
 };
 
 //comma operator (x,y) evaluates x and then returns y, reduce converts from array to hash/object by id 
-const convertToObject = (employees) =>
-    employees.reduce((acc, cur) => (acc[cur.id] = cur, acc), {});
+const convertToObjectMap = (objectWithId) =>
+    objectWithId.reduce((acc, cur) => (acc[cur.id] = cur, acc), {});
 
 //withRouter so that we have access to this.pops.history
 export default withRouter(connect(mapStateToProps, { getEmployees, postEmployee })(Demos)); 
