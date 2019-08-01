@@ -1,40 +1,52 @@
 ﻿import React from 'react';
 import { Table, Header, Rating } from 'semantic-ui-react'
 
-const EmployeeStatistics = (props) => (
-    <Table celled padded>
-        <Table.Header>
-            <Table.Row>
-                <Table.HeaderCell singleLine>Aggregate </Table.HeaderCell>
-                <Table.HeaderCell>Effect</Table.HeaderCell>
-                <Table.HeaderCell>Efficacy</Table.HeaderCell>
-                <Table.HeaderCell>Consensus</Table.HeaderCell>
-                <Table.HeaderCell>Comments</Table.HeaderCell>
-            </Table.Row>
-        </Table.Header>
 
-        <Table.Body>
-            <Table.Row>
-                <Table.Cell>
-                    <Header as='h2' textAlign='center'>
-                        A
-                             </Header>
-                </Table.Cell>
-                <Table.Cell singleLine>Power Output</Table.Cell>
-                <Table.Cell>
-                    <Rating icon='star' defaultRating={3} maxRating={3} />
-                </Table.Cell>
-                <Table.Cell textAlign='right'>
-                    80% <br />
-                    <a>18 studies</a>
-                </Table.Cell>
-                <Table.Cell>
-                    Creatine supplementation is the reference compound for increasing muscular creatine
-                    levels; there is variability in this increase, however, with some nonresponders.
-                        </Table.Cell>
-            </Table.Row>
-        </Table.Body>
-    </Table>
-);
+
+const EmployeeStatistics = (props) => {
+
+    //no stats? no render
+    if (!props || !props.stats) 
+        return null;
+    const { individual, aggregate } = props.stats;
+
+    //no stats? no render
+    if (!individual || !aggregate)
+        return null;
+
+    return (
+        <Table celled padded>
+            <Table.Header>
+                <Table.Row>
+                    <Table.HeaderCell singleLine>Count</Table.HeaderCell>
+                    <Table.HeaderCell>Total Cost</Table.HeaderCell>
+                    <Table.HeaderCell>Discount</Table.HeaderCell>
+                    <Table.HeaderCell>...</Table.HeaderCell>
+                    <Table.HeaderCell>...</Table.HeaderCell>
+                </Table.Row>
+            </Table.Header>
+
+            <Table.Body>
+                <Table.Row>
+                    <Table.Cell>
+                            Total Employees: {aggregate.total}
+                    </Table.Cell>
+                    <Table.Cell singleLine={false}>
+                        Total Cost: {aggregate.totalAnnualCost}
+                    </Table.Cell>
+                    <Table.Cell singleLine={false}>
+                        Total Discount: {aggregate.totalDiscounted}
+                    </Table.Cell>
+                    <Table.Cell textAlign='left'>
+                        ...
+                    </Table.Cell>
+                    <Table.Cell>
+                        ...
+                    </Table.Cell>
+                </Table.Row>
+            </Table.Body>
+        </Table>
+    );
+}
 
 export default EmployeeStatistics;

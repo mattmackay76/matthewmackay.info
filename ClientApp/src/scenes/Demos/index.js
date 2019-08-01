@@ -8,6 +8,8 @@ import { toast } from 'react-toastify';
 import { PAYROLL_API_ERROR } from './services/flags/constants';
 import { getEmployees, postEmployee } from './services/employee/actions';
 import { setFlag } from '../../services/flags/actions';
+import { employeesStats } from './services/employee/calculations';
+
 import EmployeeEditor from './components/EmployeeEditor';
 import DependentEditor from './components/DependentEditor';
 import EmployeeStatistics from './components/EmployeeStatistics';
@@ -28,6 +30,7 @@ class Demos extends Component {
             currentEmployee: {},
             currentDependents: {},
             currentDependent: {},
+            stats: {},
         };
 
         //since these are called by children and we need the correct *this*
@@ -130,11 +133,20 @@ class Demos extends Component {
         });
 
     shouldComponentUpdate(nextProps, nextState) {
+        
         if (nextProps.flags && nextProps.flags[PAYROLL_API_ERROR]) {
             toast.error(nextProps.flags[PAYROLL_API_ERROR]);
             this.props.setFlag({ [PAYROLL_API_ERROR]: undefined });
             return false; //no need to update/re-render this component in this case
         }
+
+        //if the employee list changed
+        if (nextProps.employeeList !== this.props.employeeList) {
+            this.setState({
+                stats: employeesStats(nextProps.employeeList)
+            });
+        }
+        
         return true;
     }
 
@@ -150,6 +162,8 @@ class Demos extends Component {
             this.props.history.push('/'); //redirects us back to the root since user is not logged in
             return null; //do not render anything
         }
+
+        const { individual, aggregate } = this.state.stats;
 
         return (
             <article id="demos" className="content">
@@ -211,14 +225,32 @@ class Demos extends Component {
                                     </List.Header>
                                     <List.Description>
                                         <List.Header>
-                                            <span>
-                                                Annual Pay Periods: {this.props.employeeList[id].annualPayPeriods}
-                                            </span>
-                                            <span>
-                                                Annual Benefit Expense: {this.props.employeeList[id].annualBenefitExpense}
-                                            </span>
+                                            {individual && individual[id] && individual[id].hasDiscount ? (
+                                                <span>
+                                                    Discount {individual && individual[id] ? individual[id].discount : ''}
+                                                </span>
+                                            ) : null }
                                         </List.Header>
-                                        <List.Header>Expense: {this.props.employeeList[id].annualBenefitExpense}</List.Header>
+                                        <List.Header>
+                                            {individual && individual[id] ? (
+                                                <div>
+                                                    <span>
+                                                        Annual pay periods: {this.props.employeeList[id].annualBenefitExpense}
+                                                    </span><br />
+                                                </div>
+                                            ) : null}
+                                        <List.Header/>
+                                            {individual && individual[id] ? (
+                                                <div>
+                                                    <span>
+                                                        Annual Cost {individual && individual[id] ? individual[id].annualCost : ''}
+                                                    </span><br/>
+                                                    <span>
+                                                        Total Annual Cost {individual && individual[id] ? individual[id].totalAnnualCost : ''}
+                                                    </span>
+                                                </div>
+                                            ) : null}
+                                        </List.Header>
                                     </List.Description>
                                 </List.Content>
                                 <List.Content floated='right'>
@@ -228,7 +260,7 @@ class Demos extends Component {
                         ))}
                     </List>
                     
-                    <EmployeeStatistics />
+                        <EmployeeStatistics stats={this.state.stats}  />
                 </div>
                 </Sidebar.Pushable>
             </article>
