@@ -1,2 +1,3 @@
 ﻿export const POST_EMPLOYEE = 'POST_EMPLOYEE';
 export const GET_EMPLOYEES = 'GET_EMPLOYEES';
+export const UPDATE_EMPLOYEES = 'UPDATE_EMPLOYEES';

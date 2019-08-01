@@ -1,4 +1,4 @@
-﻿import { POST_EMPLOYEE, GET_EMPLOYEES } from './types';
+﻿import { POST_EMPLOYEE, GET_EMPLOYEES, UPDATE_EMPLOYEES } from './types';
 import { EXPIRED_LOGIN_ATTEMPT } from '../../../../services/flags/constants';
 import { authLogout } from '../../../../services/auth/actions';
 import { setFlag } from '../../../../services/flags/actions';
@@ -42,7 +42,10 @@ export const postEmployee = (formData, id) => async (dispatch, getState) => {
             type: POST_EMPLOYEE,
             payload: json
         });
-        dispatch(getEmployees()); //hack? TODO: move this?
+        dispatch({
+            type: UPDATE_EMPLOYEES,
+            payload: json
+        }); 
     } catch (e) {
         if (res.status === 401) {
             dispatch(setFlag({

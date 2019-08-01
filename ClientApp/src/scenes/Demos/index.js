@@ -165,7 +165,7 @@ class Demos extends Component {
 
                         </Sidebar>
                     <div>
-                            <h4>Select or add a new employee</h4>
+                            <h4 style={{display: 'inline'}}>Select or add a new employee</h4>
                             <button onClick={this.handleAddEmployee} className="ui button primary" style={
                                 {
                                     float: 'right',
