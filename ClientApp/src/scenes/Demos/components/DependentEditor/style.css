@@ -1,6 +1,46 @@
-﻿#demos .dependent-editor {
-
+﻿#demos .dependent-editor .error {
+    background-color: #fff6f6;
+    border: 1px solid red;
 }
+
+#demos .dependent-editor .ui.label {
+    background: #94182f;
+    color: white;
+    max-width: 200px;
+}
+
+#demos .dependent-editor div.formWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+#demos .dependent-editor section {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    min-width: 200px;
+}
+
+#demos .dependent-editor label {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 300px;
+    min-width: 100px;
+}
+
+#demos .dependent-editor section select {
+    width: 100px;
+}
+
+#demos .dependent-editor label input {
+    width: 200px;
+}
+
 
 @media (min-width: 600px) {
 }

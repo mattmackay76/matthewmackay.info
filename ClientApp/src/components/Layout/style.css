@@ -107,7 +107,8 @@ a {
 
 article {
     /*This prevents the article from growing outside of the grid and its content to break and wrap*/
-    min-width:0%;
+    min-width: 0%;
+    height: 700px;
     overflow-wrap: break-word;
 }
 

@@ -1,0 +1,1 @@
+﻿export const PAYROLL_API_ERROR = "PAYROLL_API_ERROR";

@@ -153,10 +153,10 @@ class EmployeeEditor extends Component {
         };
 
         let inputJsx = (label, name, id) => (
-            <label key={id} htmlFor={name}>
+            <label key={id} htmlFor={id}>
                 <span>{label}: </span>
                 <input
-                    id={name}
+                    id={id}
                     name={name} placeholder=""
                     value={this.state.formData[name]}
                     className={shouldMarkError(name) ? 'error' : ''}
@@ -177,7 +177,7 @@ class EmployeeEditor extends Component {
                     <div className="formWrapper" >
                         <section>
                             {/*Clean up this key/1,2,3 etc */}
-                            {inputJsx("Name", "name", 1)}
+                            {inputJsx("Name", "name", "emp-1")}
                             {inputJsx("Salary per period", "salaryPerPeriod", 3)}
                         </section>
 

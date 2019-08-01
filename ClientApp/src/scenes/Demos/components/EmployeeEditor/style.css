@@ -39,7 +39,7 @@
 #demos .employee-editor label input {
     width: 75px;
 }
-#demos .employee-editor label input#name {
+#demos .employee-editor label input {
     width: 200px;
 }
 

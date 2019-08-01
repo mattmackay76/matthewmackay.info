@@ -1,22 +1,9 @@
 ﻿import { POST_EMPLOYEE, GET_EMPLOYEES, UPDATE_EMPLOYEES } from './types';
 import { EXPIRED_LOGIN_ATTEMPT } from '../../../../services/flags/constants';
+import { PAYROLL_API_ERROR } from '../flags/constants';
 import { authLogout } from '../../../../services/auth/actions';
 import { setFlag } from '../../../../services/flags/actions';
 
-
-//TODO: clean this up
-/* Example of server returned validation error postEmployee
- {
-   "errors":{
-      "salaryPerPeriod":[
-         "Could not convert string to decimal: 2000assfa222. Path 'salaryPerPeriod', line 1, position 121."
-      ]
-   },
-   "title":"One or more validation errors occurred.",
-   "status":400,
-   "traceId":"0HLOLDPT20BBG:00000007"
-}
- * */
 export const postEmployee = (formData, id) => async (dispatch, getState) => {
     const token = getState().auth.token;
     let body = { ...formData };
@@ -38,6 +25,14 @@ export const postEmployee = (formData, id) => async (dispatch, getState) => {
     try {
         res = await fetch('/api/PayrollDemo/Employee', params);
         const json = await res.json();
+
+        if (res.status >= 400) {
+            dispatch(setFlag({
+                [PAYROLL_API_ERROR]: `${json.title} - ${Object.keys(json.errors).join()}`,
+            }));
+            return;
+        }
+
         dispatch({
             type: POST_EMPLOYEE,
             payload: json
@@ -52,7 +47,6 @@ export const postEmployee = (formData, id) => async (dispatch, getState) => {
                 [EXPIRED_LOGIN_ATTEMPT]: true
             }));
             dispatch(authLogout());
-
         }
     }
 };
@@ -82,6 +76,7 @@ export const getEmployees = () => async (dispatch, getState) => {
                 [EXPIRED_LOGIN_ATTEMPT]: true
             }));
             dispatch(authLogout());
+            return;
         }
     }
 };

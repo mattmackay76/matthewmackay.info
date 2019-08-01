@@ -25,5 +25,7 @@ namespace matthewmackay.info.Models
         public ObjectId Id { get; set; } = ObjectId.GenerateNewId();
         public string Name { get; set; }
 
+        public string DependentType { get; set; }
+
     }
 }

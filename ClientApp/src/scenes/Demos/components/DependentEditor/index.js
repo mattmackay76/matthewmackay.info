@@ -1,10 +1,6 @@
 ﻿import React, { Component } from 'react';
-import { Image, List } from 'semantic-ui-react'
 
 import "./style.css";
-
-
-
 
 class DependentEditor extends Component {
     
@@ -16,6 +12,7 @@ class DependentEditor extends Component {
             dependent: {},
             formData: {
                 name: '',
+                dependentType: 'spouse'
             },
             touched: {
                 name: false,
@@ -45,7 +42,7 @@ class DependentEditor extends Component {
 
 
 
-    //This is allegedly the patter for children to be aware of changing props
+    //This is allegedly the pattern for children to be aware of changing props
     //and take a copy to local state so that we don't modify the parent. Gets called
     //if the parent changes a property for example
     componentDidUpdate(prevProps) {
@@ -64,7 +61,6 @@ class DependentEditor extends Component {
     }
 
     handleChange = (event) => {
-        //straight out'a reactjs.org
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -103,10 +99,10 @@ class DependentEditor extends Component {
 
 
         let inputJsx = (label, name, id) => (
-            <label key={id} htmlFor={name}>
+            <label key={id} htmlFor={id}>
                 <span>{label}: </span>
                 <input
-                    id={name}
+                    id={id}
                     name={name} placeholder=""
                     value={this.state.formData[name]}
                     className={shouldMarkError(name) ? 'error' : ''}
@@ -121,18 +117,29 @@ class DependentEditor extends Component {
                 </div>
             </label>);
 
+        const isNew = (this.state.dependent && this.state.dependent.id) ?
+            this.state.dependent.id.substring(0, 2) === "0." : false;
+
         return (
             <React.Fragment>
                 <form onSubmit={this.handleSubmit} className="dependent-editor">
                     <div className="formWrapper" >
+                        <h4 style={{ display: 'inline' }}>Add or Update a new dependent</h4>
                         <section>
-                            {/*Clean up this key/1,2,3 etc */}
-                            {inputJsx("Name", "name", 1)}
+                            {inputJsx("Name", "name", "dep-1")}
+                            <select id="dependentType" name="dependentType" value={this.state.formData.dependentType} onChange={this.handleChange}>
+                                <option value="spouse">Spouse</option>
+                                <option value="child">Child</option>
+                            </select>
                         </section>
                     </div>
                 </form>
-                <button disabled={isDisabled} onClick={this.handleSubmit} className="ui button primary mini" >Add</button>
-                <button onClick={this.props.onClose} className="ui button primary" style={{ width: '100%' }}>close</button>
+                
+                <button disabled={isDisabled} onClick={this.handleSubmit} className="ui button primary mini" >{isNew ? 'Add' : 'Save'}</button>
+                <button onClick={this.props.onClose} className="ui button primary mini">Cancel</button>
+                {isNew ? null : (
+                    <button className="ui negative button mini" style={{ float: 'right' }}>Delete</button>
+                )}
             </React.Fragment>
         );
     }

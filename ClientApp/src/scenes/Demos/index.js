@@ -3,11 +3,15 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';  
 import { Segment, Sidebar } from 'semantic-ui-react'
 import { Image, List } from 'semantic-ui-react'
+import { toast } from 'react-toastify';
 
+import { PAYROLL_API_ERROR } from './services/flags/constants';
 import { getEmployees, postEmployee } from './services/employee/actions';
+import { setFlag } from '../../services/flags/actions';
 import EmployeeEditor from './components/EmployeeEditor';
 import DependentEditor from './components/DependentEditor';
 import EmployeeStatistics from './components/EmployeeStatistics';
+
 
 import "./style.css";
 
@@ -31,12 +35,14 @@ class Demos extends Component {
         this.handleEditDependents = this.handleEditDependents.bind(this);
         this.handleEmployeeSave = this.handleEmployeeSave.bind(this);
         this.toggleEmployeeBar = this.toggleEmployeeBar.bind(this);
-        this.toggleDependentBar = this.toggleDependentBar.bind();
+        this.toggleDependentBar = this.toggleDependentBar.bind(this);
+        this.handleEmployeeClose = this.handleEmployeeClose.bind(this);
     }
 
     emptyDependent = (id) => ({
         id: id,
-        name: ''
+        name: '',
+        dependentType: 'spouse',
     });
 
     emptyEmployee = () => ({
@@ -58,8 +64,15 @@ class Demos extends Component {
                 return dep;
             });
         this.props.postEmployee(employee, employee.id);
-        this.toggleEmployeeBar();
+        this.handleEmployeeClose();
     };
+
+    handleEmployeeClose = () => {
+        this.setState({
+            editEmployeeBarVisible: false,
+            editEmployeeDependentsBarVisible: false,
+        });
+    }
 
     handleDependentsSave = (dependents) => {
         this.setState(
@@ -116,6 +129,15 @@ class Demos extends Component {
             editEmployeeDependentsBarVisible: !this.state.editEmployeeDependentsBarVisible
         });
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.flags && nextProps.flags[PAYROLL_API_ERROR]) {
+            toast.error(nextProps.flags[PAYROLL_API_ERROR]);
+            this.props.setFlag({ [PAYROLL_API_ERROR]: undefined });
+            return false; //no need to update/re-render this component in this case
+        }
+        return true;
+    }
+
     componentDidMount() {
         //only call if we're logged in since on logout, this control sometimes gets one last render
         if (this.props.isLoggedIn) 
@@ -144,7 +166,7 @@ class Demos extends Component {
                                 employee={this.state.currentEmployee}
                                 dependents={this.state.currentDependents}
                                 onSubmit={this.handleEmployeeSave}
-                                onClose={this.toggleEmployeeBar}
+                                onClose={this.handleEmployeeClose}
                                 onAddDependents={this.handleAddDependents} 
                                 onEditDependent={this.handleEditDependents} />
 
@@ -209,7 +231,8 @@ const mapStateToProps = (state) => {
         auth: state.auth,
         test: state.testReducer,
         employee: state.employeeReducer.employee,
-        employeeList: state.employeeReducer.employeeList ? convertToObjectMap(state.employeeReducer.employeeList) || {} : {} 
+        employeeList: state.employeeReducer.employeeList ? convertToObjectMap(state.employeeReducer.employeeList) || {} : {},
+        flags: state.flags,
     };
 };
 
@@ -218,4 +241,4 @@ const convertToObjectMap = (objectWithId) =>
     objectWithId.reduce((acc, cur) => (acc[cur.id] = cur, acc), {});
 
 //withRouter so that we have access to this.pops.history
-export default withRouter(connect(mapStateToProps, { getEmployees, postEmployee })(Demos)); 
+export default withRouter(connect(mapStateToProps, { getEmployees, postEmployee, setFlag })(Demos)); 
