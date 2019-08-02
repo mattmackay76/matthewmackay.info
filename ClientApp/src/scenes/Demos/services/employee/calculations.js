@@ -1,10 +1,4 @@
-﻿//annualBenefitExpense: 1000
-//annualDependentBenefitExpense: 500
-//annualPayPeriods: 26
-//dependents: (5)[{ … }, { … }, { … }, { … }, { … }]
-//id: "5d429099ef074029889cec8b"
-//salaryPerPeriod: 2000
-
+﻿
 function individualStats(employee) {
     const discountPercentage = .1; //10%
     const dependentCount = employee.dependents.length;
@@ -24,6 +18,7 @@ function individualStats(employee) {
         dependentCount,
         annualDependentsCost,
         annualSalaryExpense,
+        annualBenefitExpense: employee.annualBenefitExpense,
         annualPayPeriods: employee.annualPayPeriods,
         hasDiscount,
         discount,

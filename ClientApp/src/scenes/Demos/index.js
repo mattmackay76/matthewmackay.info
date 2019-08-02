@@ -226,33 +226,44 @@ class Demos extends Component {
                                         </span> - ({this.props.employeeList[id].dependents.map(d => d.name).join()})
                                     </List.Header>
                                     <List.Description>
-                                        <List.Header>
+                                        
+                                        <List.Content>
+                                            {individual && individual[id] ? (
+                                                <div>
+                                                    <span>
+                                                        Annual Salary Cost: ${formatMoney(individual[id].annualSalaryExpense)}
+                                                    </span><br />
+                                                </div>
+                                            ) : null}
+                                        </List.Content>
+                                        <List.Content>
+                                            {individual && individual[id] ? (
+                                                <div>
+                                                    <span>
+                                                        Annual Dependent Cost: ${individual && individual[id] ? formatMoney(individual[id].annualDependentsCost) : ''}
+                                                    </span><br/>
+                                                    <span>
+                                                        Annmual Benefit Cost: ${individual && individual[id] ? formatMoney(individual[id].annualBenefitExpense) : ''}
+                                                    </span>
+                                                </div>
+                                            ) : null}
+                                        </List.Content>
+                                        <List.Content>
                                             {individual && individual[id] && individual[id].hasDiscount ? (
                                                 <span>
                                                     Discount: ${individual && individual[id] ? formatMoney(individual[id].discount) : ''}
                                                 </span>
-                                            ) : null }
-                                        </List.Header>
-                                        <List.Header>
+                                            ) : null}
+                                        </List.Content>
+                                        <List.Content>
                                             {individual && individual[id] ? (
                                                 <div>
                                                     <span>
-                                                        Annual pay periods: ${formatMoney(this.props.employeeList[id].annualBenefitExpense)}
+                                                        Total Annual Cost: ${individual && individual[id] ? formatMoney(individual[id].totalAnnualCost) : ''}
                                                     </span><br />
                                                 </div>
                                             ) : null}
-                                        <List.Header/>
-                                            {individual && individual[id] ? (
-                                                <div>
-                                                    <span>
-                                                        Annual Cost: ${individual && individual[id] ? formatMoney(individual[id].annualCost) : ''}
-                                                    </span><br/>
-                                                    <span>
-                                                        Total Annual Cost: ${individual && individual[id] ? formatMoney(individual[id].totalAnnualCost) : ''}
-                                                    </span>
-                                                </div>
-                                            ) : null}
-                                        </List.Header>
+                                        </List.Content>
                                     </List.Description>
                                 </List.Content>
                                 <List.Content floated='right'>
