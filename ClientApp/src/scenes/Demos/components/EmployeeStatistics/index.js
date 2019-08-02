@@ -30,7 +30,7 @@ const EmployeeStatistics = (props) => {
             <Table.Body>
                 <Table.Row>
                     <Table.Cell>
-                        Total Employees: ${formatMoney(aggregate.total)}
+                        Total Employees: {aggregate.total}
                     </Table.Cell>
                     <Table.Cell singleLine={false}>
                         Total Cost: ${formatMoney(aggregate.totalAnnualCost)}
