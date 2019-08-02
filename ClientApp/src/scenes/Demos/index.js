@@ -9,10 +9,12 @@ import { PAYROLL_API_ERROR } from './services/flags/constants';
 import { getEmployees, postEmployee } from './services/employee/actions';
 import { setFlag } from '../../services/flags/actions';
 import { employeesStats } from './services/employee/calculations';
+import { formatMoney } from '../../services/api/helpers/formatMoney';
 
 import EmployeeEditor from './components/EmployeeEditor';
 import DependentEditor from './components/DependentEditor';
 import EmployeeStatistics from './components/EmployeeStatistics';
+
 
 
 import "./style.css";
@@ -227,7 +229,7 @@ class Demos extends Component {
                                         <List.Header>
                                             {individual && individual[id] && individual[id].hasDiscount ? (
                                                 <span>
-                                                    Discount {individual && individual[id] ? individual[id].discount : ''}
+                                                    Discount: ${individual && individual[id] ? formatMoney(individual[id].discount) : ''}
                                                 </span>
                                             ) : null }
                                         </List.Header>
@@ -235,7 +237,7 @@ class Demos extends Component {
                                             {individual && individual[id] ? (
                                                 <div>
                                                     <span>
-                                                        Annual pay periods: {this.props.employeeList[id].annualBenefitExpense}
+                                                        Annual pay periods: ${formatMoney(this.props.employeeList[id].annualBenefitExpense)}
                                                     </span><br />
                                                 </div>
                                             ) : null}
@@ -243,10 +245,10 @@ class Demos extends Component {
                                             {individual && individual[id] ? (
                                                 <div>
                                                     <span>
-                                                        Annual Cost {individual && individual[id] ? individual[id].annualCost : ''}
+                                                        Annual Cost: ${individual && individual[id] ? formatMoney(individual[id].annualCost) : ''}
                                                     </span><br/>
                                                     <span>
-                                                        Total Annual Cost {individual && individual[id] ? individual[id].totalAnnualCost : ''}
+                                                        Total Annual Cost: ${individual && individual[id] ? formatMoney(individual[id].totalAnnualCost) : ''}
                                                     </span>
                                                 </div>
                                             ) : null}

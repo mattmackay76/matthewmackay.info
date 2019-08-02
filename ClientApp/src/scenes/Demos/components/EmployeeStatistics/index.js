@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 import { Table, Header, Rating } from 'semantic-ui-react'
+import { formatMoney } from '../../../../services/api/helpers/formatMoney';
 
 
 
@@ -29,13 +30,13 @@ const EmployeeStatistics = (props) => {
             <Table.Body>
                 <Table.Row>
                     <Table.Cell>
-                            Total Employees: {aggregate.total}
+                        Total Employees: ${formatMoney(aggregate.total)}
                     </Table.Cell>
                     <Table.Cell singleLine={false}>
-                        Total Cost: {aggregate.totalAnnualCost}
+                        Total Cost: ${formatMoney(aggregate.totalAnnualCost)}
                     </Table.Cell>
                     <Table.Cell singleLine={false}>
-                        Total Discount: {aggregate.totalDiscounted}
+                        Total Discount: ${formatMoney(aggregate.totalDiscounted)}
                     </Table.Cell>
                     <Table.Cell textAlign='left'>
                         ...
