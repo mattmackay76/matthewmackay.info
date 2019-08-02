@@ -34,8 +34,8 @@ namespace matthewmackay.info.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Employee> Employees() =>
-            _payrollService.GetAll(GetUserId()).Result;
+        public async Task<ActionResult> Employees() => 
+            Ok(await _payrollService.GetAll(GetUserId()));
 
         private int GetUserId() =>
             int.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "userid").Value);

@@ -66,6 +66,14 @@ export const getEmployees = () => async (dispatch, getState) => {
     try {
         res = await fetch('/api/PayrollDemo/Employees', params);
         const json = await res.json();
+
+        if (res.status >= 400) {
+            dispatch(setFlag({
+                [PAYROLL_API_ERROR]: `${json.title} - ${Object.keys(json.errors).join()}`,
+            }));
+            return;
+        }
+
         dispatch({
             type: GET_EMPLOYEES,
             payload: json
